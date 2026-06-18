@@ -694,7 +694,7 @@
                 <div id="question-text">🎯 Let's eat healthy!</div>
                 <div id="timer-wrap">
                     <span id="timer-icon">⏱️</span>
-                    <span id="timer">10</span>
+                    <span id="timer">15</span>
                 </div>
             </div>
 
@@ -1029,7 +1029,7 @@
             correctCount: 0,
             wrongCount: 0,
             state: STATE.WAITING,
-            timer: 10,
+            timer: 15, // changed to 15
             timerInterval: null,
             cooldown: false,
             handActive: false,
@@ -1238,7 +1238,7 @@
             game.correctCount = 0;
             game.wrongCount = 0;
             game.state = STATE.WAITING;
-            game.timer = 10;
+            game.timer = 15;
             game.cooldown = false;
             game.handActive = false;
             game.selectedSide = null;
@@ -1272,8 +1272,8 @@
             rightCircle.dataset.side = 'right';
 
             game.state = STATE.WAITING;
-            game.timer = 10;
-            timerEl.textContent = '10';
+            game.timer = 15;
+            timerEl.textContent = '15';
             timerEl.className = '';
             game.cooldown = false;
             game.handActive = false;
@@ -1288,8 +1288,8 @@
             if (game.currentIndex >= game.questions.length) return;
 
             game.state = STATE.COUNTDOWN;
-            game.timer = 10;
-            timerEl.textContent = '10';
+            game.timer = 15;
+            timerEl.textContent = '15';
             timerEl.className = '';
             game.cooldown = false;
             game.handActive = false;
@@ -1448,17 +1448,23 @@
         });
 
         // ═══════════════════════════════════════════════════════════
-        //  MEDIAPIPE HAND DETECTION
+        //  MEDIAPIPE HAND DETECTION (with debounce and threshold)
         // ═══════════════════════════════════════════════════════════
         let handDetectionReady = false;
-        let cameraStarted = false;
+        let handRaisedStartTime = 0; // timestamp when hand first detected raised
+        const RAISE_THRESHOLD = 0.08; // how much index tip must be above wrist
+        const RAISE_DEBOUNCE_MS = 350; // minimum time hand must stay raised
 
         function onHandResults(results) {
+            // No hand detected -> reset state
             if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
+                handRaisedStartTime = 0;
                 if (game.state === STATE.COUNTDOWN) {
                     leftCircle.classList.remove('glow-left');
                     rightCircle.classList.remove('glow-right');
                 }
+                // Reset handActive to allow new detection
+                game.handActive = false;
                 return;
             }
 
@@ -1468,12 +1474,15 @@
             const imageWidth = video.videoWidth || 640;
             const imageHeight = video.videoHeight || 480;
 
+            // mirrored for display
             const mirroredX = imageWidth - indexTip.x * imageWidth;
-            const raised = indexTip.y < wrist.y - 0.02;
+            const raised = indexTip.y < wrist.y - RAISE_THRESHOLD;
             const half = imageWidth / 2;
             const side = mirroredX < half ? 'left' : 'right';
 
+            // Update glow based on state
             if (game.state === STATE.COUNTDOWN && raised) {
+                // Show glow
                 if (side === 'left') {
                     leftCircle.classList.add('glow-left');
                     rightCircle.classList.remove('glow-right');
@@ -1482,22 +1491,28 @@
                     leftCircle.classList.remove('glow-left');
                 }
 
-                if (raised && !game.cooldown && !game.isProcessing) {
-                    if (!game.handActive) {
-                        game.handActive = true;
-                        selectAnswer(side);
+                // Debounce: only trigger after hand has been raised for a certain duration
+                if (handRaisedStartTime === 0) {
+                    handRaisedStartTime = performance.now();
+                } else {
+                    const elapsed = performance.now() - handRaisedStartTime;
+                    if (elapsed > RAISE_DEBOUNCE_MS) {
+                        // Hand has been raised long enough -> trigger if not already processed
+                        if (!game.cooldown && !game.isProcessing && !game.handActive) {
+                            game.handActive = true;
+                            selectAnswer(side);
+                        }
                     }
                 }
             } else {
+                // Hand not raised or not in countdown -> clear glow and reset timer
                 leftCircle.classList.remove('glow-left');
                 rightCircle.classList.remove('glow-right');
+                handRaisedStartTime = 0;
+                // Reset handActive only if hand is not raised
                 if (!raised) {
                     game.handActive = false;
                 }
-            }
-
-            if (!raised) {
-                game.handActive = false;
             }
         }
 
@@ -1540,13 +1555,11 @@
 
             // Hide camera overlay
             cameraOverlay.classList.add('hidden');
-            // Show the status badge (it's already in the DOM but hidden by default)
             setStatus('✋ Raise your hand to start!', true);
 
             cameraInstance = setupHandDetection();
             cameraInstance.start().then(() => {
                 handDetectionReady = true;
-                // Start with default topic
                 initGame('foods');
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
@@ -1618,6 +1631,7 @@
         console.log('🍎 Gesture Game with Topics loaded!');
         console.log('🎮 Controls: Left/Right arrow keys to test, Space to start, R to restart');
         console.log('📂 Topics: foods, fruits, animals, colors, shapes');
+        console.log('⏱️ Timer set to 15 seconds with debounced hand detection.');
     </script>
 </body>
 </html>
