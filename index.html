@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Kids Gesture Game</title>
+    <title>🍎 Good Foods Gesture Game</title>
 
     <!-- MediaPipe Hands -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous">
@@ -73,6 +73,70 @@
             overflow: hidden;
         }
 
+        /* ─── CAMERA PERMISSION OVERLAY ─── */
+        #camera-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        #camera-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #camera-overlay .icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        #camera-overlay h2 {
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 800;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+        #camera-overlay p {
+            font-size: clamp(1rem, 1.6vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        #camera-overlay .btn-start {
+            padding: 16px 48px;
+            font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+            font-weight: 800;
+            border: none;
+            border-radius: 80px;
+            background: linear-gradient(135deg, #ffd93d, #ff9a3c);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(255, 217, 61, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 4px solid #fff;
+            font-family: inherit;
+        }
+        #camera-overlay .btn-start:hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 40px rgba(255, 217, 61, 0.7);
+        }
+        #camera-overlay .btn-start:active {
+            transform: scale(0.94);
+        }
+
         /* ─── TAB BAR ─── */
         #tab-bar {
             display: flex;
@@ -84,7 +148,7 @@
             border-radius: 60px;
             border: 4px solid #ffd93d;
             backdrop-filter: blur(8px);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             flex-shrink: 0;
             width: 100%;
             max-width: 900px;
@@ -136,7 +200,7 @@
             box-shadow: 0 8px 32px rgba(255, 200, 0, 0.3);
             flex-shrink: 0;
             backdrop-filter: blur(8px);
-            margin-top: 4px;
+            margin-top: 2px;
         }
         #question-text {
             font-size: clamp(1.2rem, 3.2vw, 2.4rem);
@@ -189,6 +253,36 @@
             }
         }
 
+        /* ─── STATUS BADGE (moved below question) ─── */
+        #status-badge {
+            width: 100%;
+            max-width: 900px;
+            padding: 8px 20px;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+            font-weight: 700;
+            color: #2d4059;
+            letter-spacing: 0.06em;
+            border: 4px solid #ffd93d;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            flex-shrink: 0;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.3s;
+            transform: translateY(-4px);
+        }
+        #status-badge.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #status-badge .emoji {
+            margin-right: 10px;
+        }
+
         /* ─── ANSWERS ROW ─── */
         #answers-row {
             width: 100%;
@@ -197,7 +291,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 6px 0;
             gap: 20px;
             min-height: 0;
         }
@@ -318,7 +412,7 @@
             backdrop-filter: blur(8px);
             border: 4px solid #ffb347;
             flex-shrink: 0;
-            margin-bottom: 2px;
+            margin-top: 4px;
             box-shadow: 0 8px 32px rgba(255, 180, 70, 0.3);
         }
         #score-wrap {
@@ -459,35 +553,6 @@
             transform: scale(0.94);
         }
 
-        /* ─── STATUS BADGE ─── */
-        #status-badge {
-            position: absolute;
-            top: 105px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            padding: 6px 24px;
-            border-radius: 60px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(6px);
-            font-size: clamp(0.9rem, 1.4vw, 1.3rem);
-            font-weight: 700;
-            color: #2d4059;
-            letter-spacing: 0.06em;
-            border: 4px solid #ffd93d;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s, transform 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-        #status-badge.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        #status-badge .emoji {
-            margin-right: 10px;
-        }
-
         /* ─── RESPONSIVE ─── */
         @media (max-width: 700px) {
             #tab-bar {
@@ -503,6 +568,12 @@
                 padding: 10px 14px;
                 border-radius: 40px;
                 margin-top: 2px;
+            }
+            #status-badge {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+                margin-top: 4px;
+                margin-bottom: 4px;
             }
             .answer-circle {
                 width: clamp(110px, 32vw, 180px);
@@ -523,11 +594,6 @@
             }
             #overlay {
                 padding: 8px 10px 12px;
-            }
-            #status-badge {
-                top: 90px;
-                padding: 4px 14px;
-                font-size: 0.75rem;
             }
         }
         @media (max-width: 450px) {
@@ -571,8 +637,7 @@
                 padding: 2px 8px 2px 6px;
             }
             #status-badge {
-                top: 80px;
-                font-size: 0.65rem;
+                font-size: 0.7rem;
                 padding: 4px 10px;
             }
         }
@@ -602,7 +667,15 @@
         <!-- WEBCAM -->
         <video id="webcam" autoplay playsinline></video>
 
-        <!-- STATUS BADGE -->
+        <!-- CAMERA PERMISSION OVERLAY -->
+        <div id="camera-overlay">
+            <span class="icon">📷</span>
+            <h2>Camera Access Required</h2>
+            <p>This game uses your camera to track hand gestures. Please allow camera access when prompted by your browser.</p>
+            <button class="btn-start" id="camera-start-btn">📸 Start Game</button>
+        </div>
+
+        <!-- STATUS BADGE (now positioned below question) -->
         <div id="status-badge"><span class="emoji">✋</span> Raise your hand to answer!</div>
 
         <!-- MAIN OVERLAY -->
@@ -926,6 +999,8 @@
         const finalStatsEl = document.getElementById('final-stats');
         const restartBtn = document.getElementById('restart-btn');
         const tabBtns = document.querySelectorAll('.tab-btn');
+        const cameraOverlay = document.getElementById('camera-overlay');
+        const cameraStartBtn = document.getElementById('camera-start-btn');
 
         // ═══════════════════════════════════════════════════════════
         //  SOUND ENGINE (Web Audio)
@@ -1094,13 +1169,11 @@
         }
 
         function initGame(topicKey = 'foods') {
-            // Stop any ongoing game
             clearTimer();
             stopConfetti();
             gameOverEl.classList.remove('show');
             gameOverEl.style.display = 'none';
 
-            // Set topic
             game.currentTopic = topicKey;
             const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.foods.questions;
             const shuffled = shuffleArray([...topicQuestions]);
@@ -1122,7 +1195,6 @@
             showQuestion();
             setStatus('✋ Raise your hand to start!', true);
 
-            // Update active tab
             tabBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.topic === topicKey);
             });
@@ -1304,9 +1376,8 @@
         //  TAB SWITCHING
         // ═══════════════════════════════════════════════════════════
         function switchTopic(topicKey) {
-            if (topicKey === game.currentTopic && game.questions.length > 0) return; // already on this topic
+            if (topicKey === game.currentTopic && game.questions.length > 0 && game.state !== STATE.GAME_OVER) return;
             initGame(topicKey);
-            // Auto-start countdown after a moment
             setTimeout(() => {
                 if (game.state === STATE.WAITING) {
                     startCountdown();
@@ -1325,6 +1396,7 @@
         //  MEDIAPIPE HAND DETECTION
         // ═══════════════════════════════════════════════════════════
         let handDetectionReady = false;
+        let cameraStarted = false;
 
         function onHandResults(results) {
             if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
@@ -1401,7 +1473,23 @@
                 facingMode: 'user',
             });
 
-            camera.start().then(() => {
+            return camera;
+        }
+
+        let cameraInstance = null;
+        let cameraStartedFlag = false;
+
+        function startCameraAndGame() {
+            if (cameraStartedFlag) return;
+            cameraStartedFlag = true;
+
+            // Hide camera overlay
+            cameraOverlay.classList.add('hidden');
+            // Show the status badge (it's already in the DOM but hidden by default)
+            setStatus('✋ Raise your hand to start!', true);
+
+            cameraInstance = setupHandDetection();
+            cameraInstance.start().then(() => {
                 handDetectionReady = true;
                 // Start with default topic
                 initGame('foods');
@@ -1412,10 +1500,24 @@
                 }, 800);
             }).catch((err) => {
                 console.warn('Camera error:', err);
-                questionEl.textContent = '📷 Please allow camera access and refresh.';
+                questionEl.textContent = '📷 Camera access denied. Please allow camera and refresh.';
                 setStatus('📷 Camera required', true);
+                cameraOverlay.classList.remove('hidden');
+                cameraStartedFlag = false;
             });
         }
+
+        // ─── Camera Start Button ───
+        cameraStartBtn.addEventListener('click', () => {
+            startCameraAndGame();
+        });
+
+        // ─── Also start when user clicks anywhere on the overlay ───
+        cameraOverlay.addEventListener('click', (e) => {
+            if (e.target === cameraOverlay || e.target.closest('#camera-overlay')) {
+                startCameraAndGame();
+            }
+        });
 
         // ═══════════════════════════════════════════════════════════
         //  RESTART
@@ -1451,16 +1553,12 @@
         // ═══════════════════════════════════════════════════════════
         //  BOOT
         // ═══════════════════════════════════════════════════════════
-        questionEl.textContent = '🎯 Loading topics…';
-        setStatus('📷 Starting camera…', true);
+        questionEl.textContent = '🎯 Pick a topic and play!';
+        setStatus('📷 Allow camera to start', false);
         window.addEventListener('resize', resizeConfetti);
-        setupHandDetection();
 
-        setTimeout(() => {
-            if (game.state === STATE.WAITING && game.currentIndex === 0) {
-                setStatus('✋ Raise your hand or press Space to start', true);
-            }
-        }, 3000);
+        // Show camera overlay by default
+        cameraOverlay.classList.remove('hidden');
 
         console.log('🍎 Gesture Game with Topics loaded!');
         console.log('🎮 Controls: Left/Right arrow keys to test, Space to start, R to restart');
