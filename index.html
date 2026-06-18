@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🍎 Good Foods Gesture Game</title>
+    <title> Kids Gesture Game</title>
 
     <!-- MediaPipe Hands -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous">
@@ -66,11 +66,59 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 20px 30px 30px;
+            padding: 10px 20px 20px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
+            overflow: hidden;
+        }
+
+        /* ─── TAB BAR ─── */
+        #tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 248, 225, 0.85);
+            border-radius: 60px;
+            border: 4px solid #ffd93d;
+            backdrop-filter: blur(8px);
+            margin-bottom: 8px;
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn {
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 3px solid transparent;
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.6);
+            color: #2d4059;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            font-family: inherit;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .tab-btn.active {
+            background: #ffd93d;
+            border-color: #fff;
+            box-shadow: 0 4px 16px rgba(255, 217, 61, 0.5);
+            transform: scale(1.05);
+        }
+        .tab-btn .emoji-tab {
+            font-size: 1.2rem;
         }
 
         /* ─── HEADER (question + timer) ─── */
@@ -81,17 +129,17 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: 16px 28px;
+            padding: 12px 24px;
             background: rgba(255, 248, 225, 0.85);
             border-radius: 80px;
             border: 6px solid #ffd93d;
             box-shadow: 0 8px 32px rgba(255, 200, 0, 0.3);
-            margin-top: 10px;
             flex-shrink: 0;
             backdrop-filter: blur(8px);
+            margin-top: 4px;
         }
         #question-text {
-            font-size: clamp(1.4rem, 3.6vw, 2.6rem);
+            font-size: clamp(1.2rem, 3.2vw, 2.4rem);
             font-weight: 800;
             line-height: 1.3;
             flex: 1;
@@ -105,18 +153,18 @@
             gap: 8px;
             flex-shrink: 0;
             background: rgba(255, 255, 255, 0.5);
-            padding: 4px 18px 4px 14px;
+            padding: 4px 16px 4px 12px;
             border-radius: 60px;
             border: 3px solid #ff6b6b;
         }
         #timer-icon {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
         #timer {
-            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-size: clamp(2.4rem, 4.5vw, 3.8rem);
             font-weight: 900;
             color: #ff6b6b;
-            min-width: 60px;
+            min-width: 50px;
             text-align: center;
             font-variant-numeric: tabular-nums;
             text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
@@ -149,19 +197,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 8px 0;
             gap: 20px;
             min-height: 0;
         }
         .answer-circle {
-            width: clamp(160px, 30vw, 300px);
-            height: clamp(160px, 30vw, 300px);
+            width: clamp(140px, 28vw, 280px);
+            height: clamp(140px, 28vw, 280px);
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: clamp(2.2rem, 5vw, 4.5rem);
+            font-size: clamp(2rem, 4.5vw, 4rem);
             font-weight: 800;
             color: #fff;
             text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -176,28 +224,28 @@
             -webkit-backdrop-filter: blur(4px);
         }
         .answer-circle .label {
-            font-size: clamp(0.7rem, 1.2vw, 1.1rem);
+            font-size: clamp(0.6rem, 1vw, 1rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             opacity: 0.9;
-            margin-top: 6px;
+            margin-top: 4px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             background: rgba(0, 0, 0, 0.2);
-            padding: 4px 16px;
+            padding: 2px 14px;
             border-radius: 40px;
         }
         .answer-circle .answer-text {
             line-height: 1.2;
             text-align: center;
-            padding: 0 8px;
+            padding: 0 6px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2px;
         }
         .answer-circle .answer-text .emoji-big {
-            font-size: 3.5rem;
+            font-size: 3rem;
             display: block;
         }
 
@@ -264,35 +312,35 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 24px;
+            padding: 10px 20px;
             background: rgba(255, 248, 225, 0.85);
             border-radius: 60px;
             backdrop-filter: blur(8px);
             border: 4px solid #ffb347;
             flex-shrink: 0;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             box-shadow: 0 8px 32px rgba(255, 180, 70, 0.3);
         }
         #score-wrap {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            gap: 10px;
+            font-size: clamp(1rem, 1.8vw, 1.6rem);
             font-weight: 700;
             color: #2d4059;
         }
         #score-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         #score-value {
             color: #ff6b6b;
             font-weight: 900;
-            font-size: clamp(1.8rem, 2.8vw, 2.6rem);
-            min-width: 40px;
+            font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+            min-width: 36px;
             text-align: center;
             transition: transform 0.15s;
             background: rgba(255, 255, 255, 0.5);
-            padding: 0 12px;
+            padding: 0 10px;
             border-radius: 40px;
         }
         #score-value.pop {
@@ -312,12 +360,12 @@
         }
 
         #progress {
-            font-size: clamp(1rem, 1.6vw, 1.4rem);
+            font-size: clamp(0.9rem, 1.4vw, 1.3rem);
             font-weight: 700;
             color: #2d4059;
             letter-spacing: 0.04em;
             background: rgba(255, 255, 255, 0.4);
-            padding: 4px 18px;
+            padding: 4px 16px;
             border-radius: 40px;
         }
         #progress strong {
@@ -362,37 +410,37 @@
             display: flex;
         }
         #game-over h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(2.8rem, 6vw, 5rem);
             font-weight: 900;
             color: #ff6b6b;
             text-shadow: 4px 4px 0 #ffd93d;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         #game-over .sub {
-            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+            font-size: clamp(1.2rem, 2.2vw, 2rem);
             color: #2d4059;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 700;
         }
         #game-over .final-score {
-            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-size: clamp(3rem, 6vw, 5.5rem);
             font-weight: 900;
             color: #ffd93d;
-            margin: 8px 0 20px;
+            margin: 6px 0 16px;
             text-shadow: 4px 4px 0 #ff9a3c;
         }
         #game-over .stats {
-            font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+            font-size: clamp(1rem, 1.6vw, 1.5rem);
             color: #2d4059;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             background: rgba(255, 255, 255, 0.5);
-            padding: 8px 24px;
+            padding: 6px 20px;
             border-radius: 60px;
         }
         #restart-btn {
-            padding: 16px 56px;
-            font-size: clamp(1.4rem, 2vw, 2rem);
+            padding: 14px 48px;
+            font-size: clamp(1.2rem, 1.8vw, 1.8rem);
             font-weight: 800;
             border: none;
             border-radius: 80px;
@@ -414,15 +462,15 @@
         /* ─── STATUS BADGE ─── */
         #status-badge {
             position: absolute;
-            top: 90px;
+            top: 105px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
-            padding: 8px 30px;
+            padding: 6px 24px;
             border-radius: 60px;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(6px);
-            font-size: clamp(1rem, 1.6vw, 1.4rem);
+            font-size: clamp(0.9rem, 1.4vw, 1.3rem);
             font-weight: 700;
             color: #2d4059;
             letter-spacing: 0.06em;
@@ -437,74 +485,95 @@
             transform: translateX(-50%) translateY(0);
         }
         #status-badge .emoji {
-            margin-right: 12px;
+            margin-right: 10px;
         }
 
         /* ─── RESPONSIVE ─── */
         @media (max-width: 700px) {
-            #header {
-                padding: 12px 16px;
+            #tab-bar {
+                gap: 6px;
+                padding: 6px 10px;
                 border-radius: 40px;
-                margin-top: 4px;
+            }
+            .tab-btn {
+                padding: 4px 12px;
+                font-size: 0.8rem;
+            }
+            #header {
+                padding: 10px 14px;
+                border-radius: 40px;
+                margin-top: 2px;
             }
             .answer-circle {
-                width: clamp(120px, 34vw, 200px);
-                height: clamp(120px, 34vw, 200px);
-                font-size: clamp(1.8rem, 5vw, 3rem);
+                width: clamp(110px, 32vw, 180px);
+                height: clamp(110px, 32vw, 180px);
+                font-size: clamp(1.6rem, 4.5vw, 2.8rem);
                 border-width: 6px;
             }
             .answer-circle .answer-text .emoji-big {
-                font-size: 2.5rem;
-            }
-            .answer-circle .label {
-                font-size: 0.6rem;
-                padding: 2px 12px;
-            }
-            #footer {
-                padding: 10px 14px;
-                border-radius: 40px;
-            }
-            #overlay {
-                padding: 12px 14px 16px;
-            }
-            #status-badge {
-                top: 80px;
-                padding: 4px 16px;
-                font-size: 0.8rem;
-            }
-        }
-        @media (max-width: 450px) {
-            .answer-circle {
-                width: clamp(90px, 32vw, 150px);
-                height: clamp(90px, 32vw, 150px);
-                font-size: clamp(1.2rem, 4.5vw, 2.2rem);
-                border-width: 4px;
-            }
-            .answer-circle .answer-text .emoji-big {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
             .answer-circle .label {
                 font-size: 0.5rem;
-                padding: 2px 8px;
+                padding: 2px 10px;
             }
-            #header {
+            #footer {
                 padding: 8px 12px;
-                gap: 10px;
+                border-radius: 40px;
             }
-            #timer {
-                font-size: 2rem;
-                min-width: 34px;
-            }
-            #question-text {
-                font-size: 1rem;
-            }
-            #timer-wrap {
-                padding: 2px 10px 2px 8px;
+            #overlay {
+                padding: 8px 10px 12px;
             }
             #status-badge {
-                top: 70px;
+                top: 90px;
+                padding: 4px 14px;
+                font-size: 0.75rem;
+            }
+        }
+        @media (max-width: 450px) {
+            .tab-btn {
+                padding: 2px 10px;
                 font-size: 0.7rem;
-                padding: 4px 12px;
+                gap: 4px;
+            }
+            .tab-btn .emoji-tab {
+                font-size: 0.9rem;
+            }
+            #tab-bar {
+                gap: 4px;
+                padding: 4px 8px;
+            }
+            .answer-circle {
+                width: clamp(85px, 30vw, 130px);
+                height: clamp(85px, 30vw, 130px);
+                font-size: clamp(1.2rem, 4vw, 2rem);
+                border-width: 4px;
+            }
+            .answer-circle .answer-text .emoji-big {
+                font-size: 1.6rem;
+            }
+            .answer-circle .label {
+                font-size: 0.45rem;
+                padding: 2px 6px;
+            }
+            #header {
+                padding: 6px 10px;
+                gap: 8px;
+            }
+            #timer {
+                font-size: 1.8rem;
+                min-width: 30px;
+            }
+            #question-text {
+                font-size: 0.9rem;
+            }
+            #timer-wrap {
+                padding: 2px 8px 2px 6px;
+            }
+            #status-badge {
+                top: 80px;
+                font-size: 0.65rem;
+                padding: 4px 10px;
             }
         }
 
@@ -538,6 +607,14 @@
 
         <!-- MAIN OVERLAY -->
         <div id="overlay">
+            <!-- TAB BAR -->
+            <div id="tab-bar">
+                <button class="tab-btn active" data-topic="foods"><span class="emoji-tab">🍎</span> Foods</button>
+                <button class="tab-btn" data-topic="animals"><span class="emoji-tab">🐾</span> Animals</button>
+                <button class="tab-btn" data-topic="colors"><span class="emoji-tab">🎨</span> Colors</button>
+                <button class="tab-btn" data-topic="shapes"><span class="emoji-tab">🔺</span> Shapes</button>
+            </div>
+
             <!-- Header -->
             <div id="header">
                 <div id="question-text">🎯 Let's eat healthy!</div>
@@ -576,7 +653,7 @@
         <!-- GAME OVER -->
         <div id="game-over">
             <h1>🎉 All done!</h1>
-            <div class="sub">You're a healthy eating champion!</div>
+            <div class="sub">You're a champion!</div>
             <div class="final-score" id="final-score">0</div>
             <div class="stats" id="final-stats">✅ Correct: 0 &nbsp;·&nbsp; ❌ Oops: 0</div>
             <button id="restart-btn">🔄 Play Again</button>
@@ -585,84 +662,226 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        //  QUESTIONS (Good Foods for Kindergarten)
+        //  TOPICS & QUESTIONS
         // ═══════════════════════════════════════════════════════════
-        const QUESTION_BANK = [{
-            q: '🍎 Which one is a fruit?',
-            left: '🥕 Carrot',
-            right: '🍌 Banana',
-            correct: 'right'
-        }, {
-            q: '🥦 Which one is a vegetable?',
-            left: '🥦 Broccoli',
-            right: '🍕 Pizza',
-            correct: 'left'
-        }, {
-            q: '🍋 What color is a banana?',
-            left: '🟡 Yellow',
-            right: '🔴 Red',
-            correct: 'left'
-        }, {
-            q: '🥛 Which drink is super healthy?',
-            left: '🥛 Milk',
-            right: '🥤 Soda',
-            correct: 'left'
-        }, {
-            q: '🍟 Which one is a healthy snack?',
-            left: '🥄 Yogurt',
-            right: '🍟 Fries',
-            correct: 'left'
-        }, {
-            q: '🌳 Which one grows on a tree?',
-            left: '🍊 Orange',
-            right: '🍞 Bread',
-            correct: 'left'
-        }, {
-            q: '🌿 Which one is a green vegetable?',
-            left: '🌿 Spinach',
-            right: '🍝 Pasta',
-            correct: 'left'
-        }, {
-            q: '🍓 Which one is sweet?',
-            left: '🍓 Strawberry',
-            right: '🍋 Lemon',
-            correct: 'left'
-        }, {
-            q: '🐄 What do cows give us?',
-            left: '🥛 Milk',
-            right: '🍳 Eggs',
-            correct: 'left'
-        }, {
-            q: '🍗 Which one is a protein?',
-            left: '🍗 Chicken',
-            right: '🍬 Candy',
-            correct: 'left'
-        }, {
-            q: '🍚 Which one is a grain?',
-            left: '🍚 Rice',
-            right: '🍦 Ice cream',
-            correct: 'left'
-        }, {
-            q: '🎃 Which food is orange?',
-            left: '🎃 Pumpkin',
-            right: '🫐 Blueberry',
-            correct: 'left'
-        }, {
-            q: '🧀 Which one is dairy?',
-            left: '🧀 Cheese',
-            right: '🥦 Broccoli',
-            correct: 'left'
-        }, {
-            q: '🦴 What is good for your bones?',
-            left: '🥛 Milk',
-            right: '🥤 Soda',
-            correct: 'left'
-        }, {
-            q: '🍇 Which one is a fruit?',
-            left: '🍇 Grape',
-            right: '🥔 Potato',
-            correct: 'left'
-        }];
+        const TOPICS = {
+            foods: {
+                label: '🍎 Foods',
+                questions: [{
+                    q: '🍎 Which one is a fruit?',
+                    left: '🥕 Carrot',
+                    right: '🍌 Banana',
+                    correct: 'right'
+                }, {
+                    q: '🥦 Which one is a vegetable?',
+                    left: '🥦 Broccoli',
+                    right: '🍕 Pizza',
+                    correct: 'left'
+                }, {
+                    q: '🍋 What color is a banana?',
+                    left: '🟡 Yellow',
+                    right: '🔴 Red',
+                    correct: 'left'
+                }, {
+                    q: '🥛 Which drink is super healthy?',
+                    left: '🥛 Milk',
+                    right: '🥤 Soda',
+                    correct: 'left'
+                }, {
+                    q: '🍟 Which one is a healthy snack?',
+                    left: '🥄 Yogurt',
+                    right: '🍟 Fries',
+                    correct: 'left'
+                }, {
+                    q: '🌳 Which one grows on a tree?',
+                    left: '🍊 Orange',
+                    right: '🍞 Bread',
+                    correct: 'left'
+                }, {
+                    q: '🌿 Which one is a green vegetable?',
+                    left: '🌿 Spinach',
+                    right: '🍝 Pasta',
+                    correct: 'left'
+                }, {
+                    q: '🍓 Which one is sweet?',
+                    left: '🍓 Strawberry',
+                    right: '🍋 Lemon',
+                    correct: 'left'
+                }, {
+                    q: '🐄 What do cows give us?',
+                    left: '🥛 Milk',
+                    right: '🥚 Eggs',
+                    correct: 'left'
+                }, {
+                    q: '🍗 Which one is a protein?',
+                    left: '🍗 Chicken',
+                    right: '🍬 Candy',
+                    correct: 'left'
+                }]
+            },
+            animals: {
+                label: '🐾 Animals',
+                questions: [{
+                    q: '🐶 Which animal says "woof"?',
+                    left: '🐱 Cat',
+                    right: '🐕 Dog',
+                    correct: 'right'
+                }, {
+                    q: '🐱 Which animal says "meow"?',
+                    left: '🐱 Cat',
+                    right: '🐮 Cow',
+                    correct: 'left'
+                }, {
+                    q: '🐮 What do cows give us?',
+                    left: '🥛 Milk',
+                    right: '🧀 Cheese',
+                    correct: 'left'
+                }, {
+                    q: '🐘 Which animal has a long trunk?',
+                    left: '🦒 Giraffe',
+                    right: '🐘 Elephant',
+                    correct: 'right'
+                }, {
+                    q: '🦒 Which animal is very tall?',
+                    left: '🦒 Giraffe',
+                    right: '🐕 Dog',
+                    correct: 'left'
+                }, {
+                    q: '🐧 Which bird can swim but not fly?',
+                    left: '🐧 Penguin',
+                    right: '🦅 Eagle',
+                    correct: 'left'
+                }, {
+                    q: '🦁 Which animal is the king of the jungle?',
+                    left: '🐯 Tiger',
+                    right: '🦁 Lion',
+                    correct: 'right'
+                }, {
+                    q: '🐠 Which animal lives in water?',
+                    left: '🐠 Fish',
+                    right: '🐦 Bird',
+                    correct: 'left'
+                }, {
+                    q: '🐵 Which animal loves bananas?',
+                    left: '🐵 Monkey',
+                    right: '🐶 Dog',
+                    correct: 'left'
+                }, {
+                    q: '🐄 Which animal gives us milk?',
+                    left: '🐄 Cow',
+                    right: '🐔 Chicken',
+                    correct: 'left'
+                }]
+            },
+            colors: {
+                label: '🎨 Colors',
+                questions: [{
+                    q: '🍎 What color is an apple?',
+                    left: '🔴 Red',
+                    right: '🟡 Yellow',
+                    correct: 'left'
+                }, {
+                    q: '🌞 What color is the sun?',
+                    left: '🔵 Blue',
+                    right: '🟡 Yellow',
+                    correct: 'right'
+                }, {
+                    q: '🌿 What color are leaves?',
+                    left: '🟢 Green',
+                    right: '🔴 Red',
+                    correct: 'left'
+                }, {
+                    q: '🌊 What color is the sky?',
+                    left: '🔵 Blue',
+                    right: '🟣 Purple',
+                    correct: 'left'
+                }, {
+                    q: '🍌 What color is a banana?',
+                    left: '🟡 Yellow',
+                    right: '🟢 Green',
+                    correct: 'left'
+                }, {
+                    q: '🧡 What color is a pumpkin?',
+                    left: '🟧 Orange',
+                    right: '🟣 Purple',
+                    correct: 'left'
+                }, {
+                    q: '🍇 What color are grapes?',
+                    left: '🟣 Purple',
+                    right: '🔴 Red',
+                    correct: 'left'
+                }, {
+                    q: '🦒 What color is a giraffe?',
+                    left: '🟡 Yellow & brown',
+                    right: '⚪ White',
+                    correct: 'left'
+                }, {
+                    q: '🐼 What color is a panda?',
+                    left: '⚪ Black & white',
+                    right: '🟤 Brown',
+                    correct: 'left'
+                }, {
+                    q: '🎄 What color is a Christmas tree?',
+                    left: '🟢 Green',
+                    right: '🔴 Red',
+                    correct: 'left'
+                }]
+            },
+            shapes: {
+                label: '🔺 Shapes',
+                questions: [{
+                    q: '🔺 What shape has 3 sides?',
+                    left: '🔺 Triangle',
+                    right: '⬛ Square',
+                    correct: 'left'
+                }, {
+                    q: '⬛ What shape has 4 equal sides?',
+                    left: '⬛ Square',
+                    right: '🔵 Circle',
+                    correct: 'left'
+                }, {
+                    q: '🔵 What shape is round?',
+                    left: '🔵 Circle',
+                    right: '🟥 Rectangle',
+                    correct: 'left'
+                }, {
+                    q: '🟥 What shape has 4 sides, not all equal?',
+                    left: '🟥 Rectangle',
+                    right: '🔺 Triangle',
+                    correct: 'left'
+                }, {
+                    q: '⭐ What shape looks like a star?',
+                    left: '⭐ Star',
+                    right: '🔵 Circle',
+                    correct: 'left'
+                }, {
+                    q: '❤️ What shape is like a heart?',
+                    left: '❤️ Heart',
+                    right: '⬛ Square',
+                    correct: 'left'
+                }, {
+                    q: '💎 What shape is a diamond?',
+                    left: '💎 Diamond',
+                    right: '🔺 Triangle',
+                    correct: 'left'
+                }, {
+                    q: '🌙 What shape looks like a crescent?',
+                    left: '🌙 Crescent',
+                    right: '🔵 Circle',
+                    correct: 'left'
+                }, {
+                    q: '⬜ What shape is a rectangle?',
+                    left: '🟥 Rectangle',
+                    right: '⬛ Square',
+                    correct: 'left'
+                }, {
+                    q: '🔺 How many sides does a triangle have?',
+                    left: '3',
+                    right: '4',
+                    correct: 'left'
+                }]
+            }
+        };
 
         // ═══════════════════════════════════════════════════════════
         //  GAME STATE
@@ -675,6 +894,7 @@
         };
 
         let game = {
+            currentTopic: 'foods',
             questions: [],
             currentIndex: 0,
             score: 0,
@@ -705,6 +925,7 @@
         const finalScoreEl = document.getElementById('final-score');
         const finalStatsEl = document.getElementById('final-stats');
         const restartBtn = document.getElementById('restart-btn');
+        const tabBtns = document.querySelectorAll('.tab-btn');
 
         // ═══════════════════════════════════════════════════════════
         //  SOUND ENGINE (Web Audio)
@@ -872,9 +1093,18 @@
             return arr;
         }
 
-        function initGame() {
-            const shuffled = shuffleArray([...QUESTION_BANK]);
-            game.questions = shuffled.slice(0, Math.min(game.totalQuestions, shuffled.length));
+        function initGame(topicKey = 'foods') {
+            // Stop any ongoing game
+            clearTimer();
+            stopConfetti();
+            gameOverEl.classList.remove('show');
+            gameOverEl.style.display = 'none';
+
+            // Set topic
+            game.currentTopic = topicKey;
+            const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.foods.questions;
+            const shuffled = shuffleArray([...topicQuestions]);
+            game.questions = shuffled.slice(0, Math.min(10, shuffled.length));
             game.currentIndex = 0;
             game.score = 0;
             game.correctCount = 0;
@@ -889,13 +1119,13 @@
             qTotalEl.textContent = game.questions.length;
             game.totalQuestions = game.questions.length;
             updateScore();
-            gameOverEl.classList.remove('show');
-            gameOverEl.style.display = 'none';
-            stopConfetti();
-            clearTimer();
-
             showQuestion();
             setStatus('✋ Raise your hand to start!', true);
+
+            // Update active tab
+            tabBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.topic === topicKey);
+            });
         }
 
         function showQuestion() {
@@ -904,13 +1134,11 @@
                 return;
             }
             const q = game.questions[game.currentIndex];
-            // Update question and answers with emojis
             questionEl.textContent = q.q;
             leftCircle.querySelector('.answer-text').innerHTML = q.left;
             rightCircle.querySelector('.answer-text').innerHTML = q.right;
             qNumEl.textContent = game.currentIndex + 1;
 
-            // Reset circles
             leftCircle.className = 'answer-circle';
             rightCircle.className = 'answer-circle';
             leftCircle.dataset.side = 'left';
@@ -1000,7 +1228,7 @@
                 updateScore(true);
                 soundCorrect();
                 launchConfetti(180);
-                setStatus('🌟 Correct! You\'re awesome! 🎉', true);
+                setStatus('🌟 Correct! Awesome! 🎉', true);
             } else {
                 el.classList.add('wrong');
                 const correctEl = q.correct === 'left' ? leftCircle : rightCircle;
@@ -1073,6 +1301,27 @@
         }
 
         // ═══════════════════════════════════════════════════════════
+        //  TAB SWITCHING
+        // ═══════════════════════════════════════════════════════════
+        function switchTopic(topicKey) {
+            if (topicKey === game.currentTopic && game.questions.length > 0) return; // already on this topic
+            initGame(topicKey);
+            // Auto-start countdown after a moment
+            setTimeout(() => {
+                if (game.state === STATE.WAITING) {
+                    startCountdown();
+                }
+            }, 600);
+        }
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const topic = btn.dataset.topic;
+                switchTopic(topic);
+            });
+        });
+
+        // ═══════════════════════════════════════════════════════════
         //  MEDIAPIPE HAND DETECTION
         // ═══════════════════════════════════════════════════════════
         let handDetectionReady = false;
@@ -1093,8 +1342,6 @@
             const imageHeight = video.videoHeight || 480;
 
             const mirroredX = imageWidth - indexTip.x * imageWidth;
-            const y = indexTip.y * imageHeight;
-
             const raised = indexTip.y < wrist.y - 0.02;
             const half = imageWidth / 2;
             const side = mirroredX < half ? 'left' : 'right';
@@ -1156,7 +1403,8 @@
 
             camera.start().then(() => {
                 handDetectionReady = true;
-                initGame();
+                // Start with default topic
+                initGame('foods');
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
                         startCountdown();
@@ -1176,7 +1424,7 @@
             stopConfetti();
             gameOverEl.classList.remove('show');
             gameOverEl.style.display = 'none';
-            initGame();
+            initGame(game.currentTopic);
             setTimeout(() => {
                 if (game.state === STATE.WAITING) {
                     startCountdown();
@@ -1203,7 +1451,7 @@
         // ═══════════════════════════════════════════════════════════
         //  BOOT
         // ═══════════════════════════════════════════════════════════
-        questionEl.textContent = '🎯 Loading healthy foods…';
+        questionEl.textContent = '🎯 Loading topics…';
         setStatus('📷 Starting camera…', true);
         window.addEventListener('resize', resizeConfetti);
         setupHandDetection();
@@ -1214,8 +1462,9 @@
             }
         }, 3000);
 
-        console.log('🍎 Good Foods Gesture Game loaded!');
+        console.log('🍎 Gesture Game with Topics loaded!');
         console.log('🎮 Controls: Left/Right arrow keys to test, Space to start, R to restart');
+        console.log('📂 Topics: foods, animals, colors, shapes');
     </script>
 </body>
 </html>
