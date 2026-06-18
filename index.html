@@ -683,6 +683,7 @@
             <!-- TAB BAR -->
             <div id="tab-bar">
                 <button class="tab-btn active" data-topic="foods"><span class="emoji-tab">🍎</span> Foods</button>
+                <button class="tab-btn" data-topic="fruits"><span class="emoji-tab">🍉</span> Fruits</button>
                 <button class="tab-btn" data-topic="animals"><span class="emoji-tab">🐾</span> Animals</button>
                 <button class="tab-btn" data-topic="colors"><span class="emoji-tab">🎨</span> Colors</button>
                 <button class="tab-btn" data-topic="shapes"><span class="emoji-tab">🔺</span> Shapes</button>
@@ -789,6 +790,60 @@
                     q: '🍗 Which one is a protein?',
                     left: '🍗 Chicken',
                     right: '🍬 Candy',
+                    correct: 'left'
+                }]
+            },
+            fruits: {
+                label: '🍉 Fruits',
+                questions: [{
+                    q: '🍎 Which fruit is red and crisp?',
+                    left: '🍎 Apple',
+                    right: '🍌 Banana',
+                    correct: 'left'
+                }, {
+                    q: '🍌 Which fruit is yellow and curved?',
+                    left: '🍋 Lemon',
+                    right: '🍌 Banana',
+                    correct: 'right'
+                }, {
+                    q: '🍊 Which fruit is orange and round?',
+                    left: '🍊 Orange',
+                    right: '🍇 Grape',
+                    correct: 'left'
+                }, {
+                    q: '🍇 Which fruit grows in bunches?',
+                    left: '🍇 Grape',
+                    right: '🍓 Strawberry',
+                    correct: 'left'
+                }, {
+                    q: '🍓 Which fruit is red with seeds on the outside?',
+                    left: '🍎 Apple',
+                    right: '🍓 Strawberry',
+                    correct: 'right'
+                }, {
+                    q: '🍉 Which fruit has a green rind and red inside?',
+                    left: '🍉 Watermelon',
+                    right: '🍈 Melon',
+                    correct: 'left'
+                }, {
+                    q: '🍑 Which fruit has a fuzzy skin and a stone inside?',
+                    left: '🍑 Peach',
+                    right: '🍐 Pear',
+                    correct: 'left'
+                }, {
+                    q: '🍍 Which fruit has a spiky crown?',
+                    left: '🍍 Pineapple',
+                    right: '🥝 Kiwi',
+                    correct: 'left'
+                }, {
+                    q: '🥝 Which fruit is green and fuzzy on the outside?',
+                    left: '🥝 Kiwi',
+                    right: '🍐 Pear',
+                    correct: 'left'
+                }, {
+                    q: '🍒 Which fruit is small, red, and has a pit?',
+                    left: '🍒 Cherry',
+                    right: '🫐 Blueberry',
                     correct: 'left'
                 }]
             },
@@ -1562,7 +1617,7 @@
 
         console.log('🍎 Gesture Game with Topics loaded!');
         console.log('🎮 Controls: Left/Right arrow keys to test, Space to start, R to restart');
-        console.log('📂 Topics: foods, animals, colors, shapes');
+        console.log('📂 Topics: foods, fruits, animals, colors, shapes');
     </script>
 </body>
 </html>
