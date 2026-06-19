@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🍎 Good Foods Gesture Game</title>
+    <title>🌈 Fun Gesture Game</title>
 
     <!-- MediaPipe Hands -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous">
@@ -67,9 +67,9 @@
             flex-direction: column;
             align-items: center;
             padding: 10px 20px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             overflow: hidden;
         }
 
@@ -142,23 +142,23 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: rgba(255, 248, 225, 0.85);
+            gap: 6px;
+            padding: 6px 10px;
+            background: rgba(255, 248, 225, 0.88);
             border-radius: 60px;
             border: 4px solid #ffd93d;
             backdrop-filter: blur(8px);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             flex-shrink: 0;
             width: 100%;
             max-width: 900px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         .tab-btn {
-            padding: 6px 18px;
+            padding: 4px 14px;
             border-radius: 40px;
             border: 3px solid transparent;
-            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+            font-size: clamp(0.8rem, 1.2vw, 1.1rem);
             font-weight: 700;
             background: rgba(255, 255, 255, 0.6);
             color: #2d4059;
@@ -169,7 +169,7 @@
             letter-spacing: 0.03em;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .tab-btn:hover {
             transform: scale(1.05);
@@ -182,84 +182,48 @@
             transform: scale(1.05);
         }
         .tab-btn .emoji-tab {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
-        /* ─── HEADER (question + timer) ─── */
+        /* ─── HEADER (question only, no timer) ─── */
         #header {
             width: 100%;
             max-width: 900px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+            justify-content: center;
             padding: 12px 24px;
-            background: rgba(255, 248, 225, 0.85);
+            background: rgba(255, 248, 225, 0.88);
             border-radius: 80px;
             border: 6px solid #ffd93d;
             box-shadow: 0 8px 32px rgba(255, 200, 0, 0.3);
             flex-shrink: 0;
             backdrop-filter: blur(8px);
             margin-top: 2px;
+            min-height: 80px;
         }
         #question-text {
-            font-size: clamp(1.2rem, 3.2vw, 2.4rem);
+            font-size: clamp(1.4rem, 3.6vw, 2.8rem);
             font-weight: 800;
             line-height: 1.3;
-            flex: 1;
             color: #2d4059;
             text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5);
             letter-spacing: 0.02em;
-        }
-        #timer-wrap {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 4px 16px 4px 12px;
-            border-radius: 60px;
-            border: 3px solid #ff6b6b;
-        }
-        #timer-icon {
-            font-size: 1.6rem;
-        }
-        #timer {
-            font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-            font-weight: 900;
-            color: #ff6b6b;
-            min-width: 50px;
             text-align: center;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-            transition: color 0.2s;
         }
-        #timer.warning {
-            color: #ffb347;
-            animation: pulse 0.5s ease-in-out infinite alternate;
-        }
-        #timer.danger {
-            color: #ff4757;
-            animation: pulse 0.3s ease-in-out infinite alternate;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.12);
-                opacity: 0.6;
-            }
+        #question-text .big-emoji {
+            font-size: 2.8rem;
+            display: inline-block;
+            margin-right: 6px;
         }
 
-        /* ─── STATUS BADGE (moved below question) ─── */
+        /* ─── STATUS BADGE ─── */
         #status-badge {
             width: 100%;
             max-width: 900px;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 60px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(6px);
             font-size: clamp(0.9rem, 1.4vw, 1.3rem);
             font-weight: 700;
@@ -308,12 +272,12 @@
             color: #fff;
             text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 -6px 0 rgba(0, 0, 0, 0.1);
-            transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.12s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
             cursor: default;
             position: relative;
             border: 8px dashed rgba(255, 255, 255, 0.8);
             flex-shrink: 0;
-            background: rgba(255, 200, 100, 0.7);
+            background: rgba(255, 200, 100, 0.65);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
         }
@@ -339,7 +303,7 @@
             gap: 2px;
         }
         .answer-circle .answer-text .emoji-big {
-            font-size: 3rem;
+            font-size: 3.2rem;
             display: block;
         }
 
@@ -363,37 +327,37 @@
             color: #b0e0ff;
         }
 
-        /* Glow states */
+        /* Glow states - smoother with scale */
         .answer-circle.glow-left {
             border-color: #ffd93d !important;
-            box-shadow: 0 0 60px rgba(255, 217, 61, 0.8), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
-            transform: scale(1.08);
+            box-shadow: 0 0 50px rgba(255, 217, 61, 0.7), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+            transform: scale(1.06);
             border-style: solid;
         }
         .answer-circle.glow-right {
             border-color: #4facfe !important;
-            box-shadow: 0 0 60px rgba(79, 172, 254, 0.8), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
-            transform: scale(1.08);
+            box-shadow: 0 0 50px rgba(79, 172, 254, 0.7), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+            transform: scale(1.06);
             border-style: solid;
         }
 
         /* Correct / wrong states */
         .answer-circle.correct {
             border-color: #2ecc71 !important;
-            box-shadow: 0 0 80px rgba(46, 204, 113, 0.7), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 0 70px rgba(46, 204, 113, 0.6), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
             background: radial-gradient(ellipse at 30% 30%, #2ecc71, #27ae60) !important;
-            transform: scale(1.12);
+            transform: scale(1.10);
             border-style: solid;
         }
         .answer-circle.wrong {
             border-color: #e74c3c !important;
-            box-shadow: 0 0 80px rgba(231, 76, 60, 0.7), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 0 70px rgba(231, 76, 60, 0.6), 0 12px 40px rgba(0, 0, 0, 0.2) !important;
             background: radial-gradient(ellipse at 30% 30%, #e74c3c, #c0392b) !important;
-            transform: scale(0.92);
+            transform: scale(0.94);
             border-style: solid;
         }
         .answer-circle.disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             transform: scale(0.95);
             filter: grayscale(0.3);
             border-style: dashed !important;
@@ -406,8 +370,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            background: rgba(255, 248, 225, 0.85);
+            padding: 8px 18px;
+            background: rgba(255, 248, 225, 0.88);
             border-radius: 60px;
             backdrop-filter: blur(8px);
             border: 4px solid #ffb347;
@@ -418,13 +382,13 @@
         #score-wrap {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-size: clamp(1rem, 1.8vw, 1.6rem);
             font-weight: 700;
             color: #2d4059;
         }
         #score-icon {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
         #score-value {
             color: #ff6b6b;
@@ -494,7 +458,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 248, 225, 0.8);
+            background: rgba(255, 248, 225, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 30px;
@@ -556,22 +520,22 @@
         /* ─── RESPONSIVE ─── */
         @media (max-width: 700px) {
             #tab-bar {
-                gap: 6px;
-                padding: 6px 10px;
+                gap: 4px;
+                padding: 4px 8px;
                 border-radius: 40px;
             }
             .tab-btn {
-                padding: 4px 12px;
-                font-size: 0.8rem;
+                padding: 3px 10px;
+                font-size: 0.7rem;
             }
             #header {
                 padding: 10px 14px;
                 border-radius: 40px;
-                margin-top: 2px;
+                min-height: 60px;
             }
             #status-badge {
-                padding: 6px 14px;
-                font-size: 0.8rem;
+                padding: 4px 12px;
+                font-size: 0.75rem;
                 margin-top: 4px;
                 margin-bottom: 4px;
             }
@@ -589,25 +553,28 @@
                 padding: 2px 10px;
             }
             #footer {
-                padding: 8px 12px;
+                padding: 6px 12px;
                 border-radius: 40px;
             }
             #overlay {
-                padding: 8px 10px 12px;
+                padding: 6px 8px 10px;
+            }
+            #question-text .big-emoji {
+                font-size: 2rem;
             }
         }
         @media (max-width: 450px) {
             .tab-btn {
-                padding: 2px 10px;
-                font-size: 0.7rem;
-                gap: 4px;
+                padding: 2px 8px;
+                font-size: 0.6rem;
+                gap: 2px;
             }
             .tab-btn .emoji-tab {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             #tab-bar {
-                gap: 4px;
-                padding: 4px 8px;
+                gap: 3px;
+                padding: 3px 6px;
             }
             .answer-circle {
                 width: clamp(85px, 30vw, 130px);
@@ -619,26 +586,22 @@
                 font-size: 1.6rem;
             }
             .answer-circle .label {
-                font-size: 0.45rem;
+                font-size: 0.4rem;
                 padding: 2px 6px;
             }
             #header {
                 padding: 6px 10px;
-                gap: 8px;
-            }
-            #timer {
-                font-size: 1.8rem;
-                min-width: 30px;
+                min-height: 50px;
             }
             #question-text {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
-            #timer-wrap {
-                padding: 2px 8px 2px 6px;
+            #question-text .big-emoji {
+                font-size: 1.6rem;
             }
             #status-badge {
-                font-size: 0.7rem;
-                padding: 4px 10px;
+                font-size: 0.65rem;
+                padding: 3px 8px;
             }
         }
 
@@ -671,37 +634,32 @@
         <div id="camera-overlay">
             <span class="icon">📷</span>
             <h2>Camera Access Required</h2>
-            <p>This game uses your camera to track hand gestures. Please allow camera access when prompted by your browser.</p>
+            <p>Wave your hand left or right to answer! Please allow camera access when prompted.</p>
             <button class="btn-start" id="camera-start-btn">📸 Start Game</button>
         </div>
 
-        <!-- STATUS BADGE (now positioned below question) -->
-        <div id="status-badge"><span class="emoji">✋</span> Raise your hand to answer!</div>
+        <!-- STATUS BADGE -->
+        <div id="status-badge"><span class="emoji">✋</span> Wave your hand left or right!</div>
 
         <!-- MAIN OVERLAY -->
         <div id="overlay">
             <!-- TAB BAR -->
             <div id="tab-bar">
-                <button class="tab-btn active" data-topic="foods"><span class="emoji-tab">🍎</span> Foods</button>
-                <button class="tab-btn" data-topic="fruits"><span class="emoji-tab">🍉</span> Fruits</button>
-                <button class="tab-btn" data-topic="animals"><span class="emoji-tab">🐾</span> Animals</button>
-                <button class="tab-btn" data-topic="colors"><span class="emoji-tab">🎨</span> Colors</button>
+                <button class="tab-btn active" data-topic="mixed"><span class="emoji-tab">🌈</span> All</button>
+                <button class="tab-btn" data-topic="fruits"><span class="emoji-tab">🍎</span> Fruits</button>
                 <button class="tab-btn" data-topic="shapes"><span class="emoji-tab">🔺</span> Shapes</button>
+                <button class="tab-btn" data-topic="colors"><span class="emoji-tab">🎨</span> Colors</button>
             </div>
 
-            <!-- Header -->
+            <!-- Header - no timer -->
             <div id="header">
-                <div id="question-text">🎯 Let's eat healthy!</div>
-                <div id="timer-wrap">
-                    <span id="timer-icon">⏱️</span>
-                    <span id="timer">15</span>
-                </div>
+                <div id="question-text">🎯 Wave your hand to answer!</div>
             </div>
 
             <!-- Answers -->
             <div id="answers-row">
                 <div id="left-answer" class="answer-circle" data-side="left">
-                    <span class="answer-text"><span class="emoji-big">🥕</span> Carrot</span>
+                    <span class="answer-text"><span class="emoji-big">🍎</span> Apple</span>
                     <span class="label">⬅ Left</span>
                 </div>
                 <div id="right-answer" class="answer-circle" data-side="right">
@@ -727,7 +685,7 @@
         <!-- GAME OVER -->
         <div id="game-over">
             <h1>🎉 All done!</h1>
-            <div class="sub">You're a champion!</div>
+            <div class="sub">You're a superstar! ⭐</div>
             <div class="final-score" id="final-score">0</div>
             <div class="stats" id="final-stats">✅ Correct: 0 &nbsp;·&nbsp; ❌ Oops: 0</div>
             <button id="restart-btn">🔄 Play Again</button>
@@ -736,301 +694,97 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        //  TOPICS & QUESTIONS
+        //  TOPICS & QUESTIONS - Super Easy for Kindergarten!
         // ═══════════════════════════════════════════════════════════
         const TOPICS = {
-            foods: {
-                label: '🍎 Foods',
-                questions: [{
-                    q: '🍎 Which one is a fruit?',
-                    left: '🥕 Carrot',
-                    right: '🍌 Banana',
-                    correct: 'right'
-                }, {
-                    q: '🥦 Which one is a vegetable?',
-                    left: '🥦 Broccoli',
-                    right: '🍕 Pizza',
-                    correct: 'left'
-                }, {
-                    q: '🍋 What color is a banana?',
-                    left: '🟡 Yellow',
-                    right: '🔴 Red',
-                    correct: 'left'
-                }, {
-                    q: '🥛 Which drink is super healthy?',
-                    left: '🥛 Milk',
-                    right: '🥤 Soda',
-                    correct: 'left'
-                }, {
-                    q: '🍟 Which one is a healthy snack?',
-                    left: '🥄 Yogurt',
-                    right: '🍟 Fries',
-                    correct: 'left'
-                }, {
-                    q: '🌳 Which one grows on a tree?',
-                    left: '🍊 Orange',
-                    right: '🍞 Bread',
-                    correct: 'left'
-                }, {
-                    q: '🌿 Which one is a green vegetable?',
-                    left: '🌿 Spinach',
-                    right: '🍝 Pasta',
-                    correct: 'left'
-                }, {
-                    q: '🍓 Which one is sweet?',
-                    left: '🍓 Strawberry',
-                    right: '🍋 Lemon',
-                    correct: 'left'
-                }, {
-                    q: '🐄 What do cows give us?',
-                    left: '🥛 Milk',
-                    right: '🥚 Eggs',
-                    correct: 'left'
-                }, {
-                    q: '🍗 Which one is a protein?',
-                    left: '🍗 Chicken',
-                    right: '🍬 Candy',
-                    correct: 'left'
-                }]
-            },
             fruits: {
-                label: '🍉 Fruits',
-                questions: [{
-                    q: '🍎 Which fruit is red and crisp?',
-                    left: '🍎 Apple',
-                    right: '🍌 Banana',
-                    correct: 'left'
-                }, {
-                    q: '🍌 Which fruit is yellow and curved?',
-                    left: '🍋 Lemon',
-                    right: '🍌 Banana',
-                    correct: 'right'
-                }, {
-                    q: '🍊 Which fruit is orange and round?',
-                    left: '🍊 Orange',
-                    right: '🍇 Grape',
-                    correct: 'left'
-                }, {
-                    q: '🍇 Which fruit grows in bunches?',
-                    left: '🍇 Grape',
-                    right: '🍓 Strawberry',
-                    correct: 'left'
-                }, {
-                    q: '🍓 Which fruit is red with seeds on the outside?',
-                    left: '🍎 Apple',
-                    right: '🍓 Strawberry',
-                    correct: 'right'
-                }, {
-                    q: '🍉 Which fruit has a green rind and red inside?',
-                    left: '🍉 Watermelon',
-                    right: '🍈 Melon',
-                    correct: 'left'
-                }, {
-                    q: '🍑 Which fruit has a fuzzy skin and a stone inside?',
-                    left: '🍑 Peach',
-                    right: '🍐 Pear',
-                    correct: 'left'
-                }, {
-                    q: '🍍 Which fruit has a spiky crown?',
-                    left: '🍍 Pineapple',
-                    right: '🥝 Kiwi',
-                    correct: 'left'
-                }, {
-                    q: '🥝 Which fruit is green and fuzzy on the outside?',
-                    left: '🥝 Kiwi',
-                    right: '🍐 Pear',
-                    correct: 'left'
-                }, {
-                    q: '🍒 Which fruit is small, red, and has a pit?',
-                    left: '🍒 Cherry',
-                    right: '🫐 Blueberry',
-                    correct: 'left'
-                }]
-            },
-            animals: {
-                label: '🐾 Animals',
-                questions: [{
-                    q: '🐶 Which animal says "woof"?',
-                    left: '🐱 Cat',
-                    right: '🐕 Dog',
-                    correct: 'right'
-                }, {
-                    q: '🐱 Which animal says "meow"?',
-                    left: '🐱 Cat',
-                    right: '🐮 Cow',
-                    correct: 'left'
-                }, {
-                    q: '🐮 What do cows give us?',
-                    left: '🥛 Milk',
-                    right: '🧀 Cheese',
-                    correct: 'left'
-                }, {
-                    q: '🐘 Which animal has a long trunk?',
-                    left: '🦒 Giraffe',
-                    right: '🐘 Elephant',
-                    correct: 'right'
-                }, {
-                    q: '🦒 Which animal is very tall?',
-                    left: '🦒 Giraffe',
-                    right: '🐕 Dog',
-                    correct: 'left'
-                }, {
-                    q: '🐧 Which bird can swim but not fly?',
-                    left: '🐧 Penguin',
-                    right: '🦅 Eagle',
-                    correct: 'left'
-                }, {
-                    q: '🦁 Which animal is the king of the jungle?',
-                    left: '🐯 Tiger',
-                    right: '🦁 Lion',
-                    correct: 'right'
-                }, {
-                    q: '🐠 Which animal lives in water?',
-                    left: '🐠 Fish',
-                    right: '🐦 Bird',
-                    correct: 'left'
-                }, {
-                    q: '🐵 Which animal loves bananas?',
-                    left: '🐵 Monkey',
-                    right: '🐶 Dog',
-                    correct: 'left'
-                }, {
-                    q: '🐄 Which animal gives us milk?',
-                    left: '🐄 Cow',
-                    right: '🐔 Chicken',
-                    correct: 'left'
-                }]
-            },
-            colors: {
-                label: '🎨 Colors',
-                questions: [{
-                    q: '🍎 What color is an apple?',
-                    left: '🔴 Red',
-                    right: '🟡 Yellow',
-                    correct: 'left'
-                }, {
-                    q: '🌞 What color is the sun?',
-                    left: '🔵 Blue',
-                    right: '🟡 Yellow',
-                    correct: 'right'
-                }, {
-                    q: '🌿 What color are leaves?',
-                    left: '🟢 Green',
-                    right: '🔴 Red',
-                    correct: 'left'
-                }, {
-                    q: '🌊 What color is the sky?',
-                    left: '🔵 Blue',
-                    right: '🟣 Purple',
-                    correct: 'left'
-                }, {
-                    q: '🍌 What color is a banana?',
-                    left: '🟡 Yellow',
-                    right: '🟢 Green',
-                    correct: 'left'
-                }, {
-                    q: '🧡 What color is a pumpkin?',
-                    left: '🟧 Orange',
-                    right: '🟣 Purple',
-                    correct: 'left'
-                }, {
-                    q: '🍇 What color are grapes?',
-                    left: '🟣 Purple',
-                    right: '🔴 Red',
-                    correct: 'left'
-                }, {
-                    q: '🦒 What color is a giraffe?',
-                    left: '🟡 Yellow & brown',
-                    right: '⚪ White',
-                    correct: 'left'
-                }, {
-                    q: '🐼 What color is a panda?',
-                    left: '⚪ Black & white',
-                    right: '🟤 Brown',
-                    correct: 'left'
-                }, {
-                    q: '🎄 What color is a Christmas tree?',
-                    left: '🟢 Green',
-                    right: '🔴 Red',
-                    correct: 'left'
-                }]
+                label: '🍎 Fruits',
+                questions: [
+                    { q: '🍎 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'left' },
+                    { q: '🍌 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'right' },
+                    { q: '🍊 What fruit is this?', left: '🍊 Orange', right: '🍇 Grape', correct: 'left' },
+                    { q: '🍇 What fruit is this?', left: '🍊 Orange', right: '🍇 Grape', correct: 'right' },
+                    { q: '🍓 What fruit is this?', left: '🍓 Strawberry', right: '🫐 Blueberry', correct: 'left' },
+                    { q: '🍉 What fruit is this?', left: '🍉 Watermelon', right: '🍈 Melon', correct: 'left' },
+                    { q: '🍑 What fruit is this?', left: '🍑 Peach', right: '🍐 Pear', correct: 'left' },
+                    { q: '🍍 What fruit is this?', left: '🍍 Pineapple', right: '🥝 Kiwi', correct: 'left' },
+                    { q: '🥝 What fruit is this?', left: '🍍 Pineapple', right: '🥝 Kiwi', correct: 'right' },
+                    { q: '🍒 What fruit is this?', left: '🍒 Cherry', right: '🍑 Peach', correct: 'left' },
+                ]
             },
             shapes: {
                 label: '🔺 Shapes',
-                questions: [{
-                    q: '🔺 What shape has 3 sides?',
-                    left: '🔺 Triangle',
-                    right: '⬛ Square',
-                    correct: 'left'
-                }, {
-                    q: '⬛ What shape has 4 equal sides?',
-                    left: '⬛ Square',
-                    right: '🔵 Circle',
-                    correct: 'left'
-                }, {
-                    q: '🔵 What shape is round?',
-                    left: '🔵 Circle',
-                    right: '🟥 Rectangle',
-                    correct: 'left'
-                }, {
-                    q: '🟥 What shape has 4 sides, not all equal?',
-                    left: '🟥 Rectangle',
-                    right: '🔺 Triangle',
-                    correct: 'left'
-                }, {
-                    q: '⭐ What shape looks like a star?',
-                    left: '⭐ Star',
-                    right: '🔵 Circle',
-                    correct: 'left'
-                }, {
-                    q: '❤️ What shape is like a heart?',
-                    left: '❤️ Heart',
-                    right: '⬛ Square',
-                    correct: 'left'
-                }, {
-                    q: '💎 What shape is a diamond?',
-                    left: '💎 Diamond',
-                    right: '🔺 Triangle',
-                    correct: 'left'
-                }, {
-                    q: '🌙 What shape looks like a crescent?',
-                    left: '🌙 Crescent',
-                    right: '🔵 Circle',
-                    correct: 'left'
-                }, {
-                    q: '⬜ What shape is a rectangle?',
-                    left: '🟥 Rectangle',
-                    right: '⬛ Square',
-                    correct: 'left'
-                }, {
-                    q: '🔺 How many sides does a triangle have?',
-                    left: '3',
-                    right: '4',
-                    correct: 'left'
-                }]
+                questions: [
+                    { q: '🔺 What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'left' },
+                    { q: '⬛ What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'right' },
+                    { q: '🔵 What shape is this?', left: '🔵 Circle', right: '🟥 Rectangle', correct: 'left' },
+                    { q: '🟥 What shape is this?', left: '🔵 Circle', right: '🟥 Rectangle', correct: 'right' },
+                    { q: '⭐ What shape is this?', left: '⭐ Star', right: '🔵 Circle', correct: 'left' },
+                    { q: '❤️ What shape is this?', left: '❤️ Heart', right: '⬛ Square', correct: 'left' },
+                    { q: '💎 What shape is this?', left: '💎 Diamond', right: '🔺 Triangle', correct: 'left' },
+                    { q: '🌙 What shape is this?', left: '🌙 Crescent', right: '🔵 Circle', correct: 'left' },
+                    { q: '⬜ What shape is this?', left: '⬜ Rectangle', right: '⬛ Square', correct: 'left' },
+                    { q: '🔺 How many sides?', left: '3', right: '4', correct: 'left' },
+                ]
+            },
+            colors: {
+                label: '🎨 Colors',
+                questions: [
+                    { q: '🔴 What color is this?', left: '🔴 Red', right: '🟡 Yellow', correct: 'left' },
+                    { q: '🔵 What color is this?', left: '🔵 Blue', right: '🟢 Green', correct: 'left' },
+                    { q: '🟢 What color is this?', left: '🔴 Red', right: '🟢 Green', correct: 'right' },
+                    { q: '🟡 What color is this?', left: '🟡 Yellow', right: '🔵 Blue', correct: 'left' },
+                    { q: '🟣 What color is this?', left: '🟣 Purple', right: '🟧 Orange', correct: 'left' },
+                    { q: '🟧 What color is this?', left: '🟣 Purple', right: '🟧 Orange', correct: 'right' },
+                    { q: '⚪ What color is this?', left: '⚪ White', right: '⚫ Black', correct: 'left' },
+                    { q: '⚫ What color is this?', left: '⚪ White', right: '⚫ Black', correct: 'right' },
+                    { q: '🟤 What color is this?', left: '🟤 Brown', right: '🩷 Pink', correct: 'left' },
+                    { q: '🩷 What color is this?', left: '🟤 Brown', right: '🩷 Pink', correct: 'right' },
+                ]
+            },
+            mixed: {
+                label: '🌈 All',
+                questions: [
+                    // Fruits
+                    { q: '🍎 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'left' },
+                    { q: '🍌 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'right' },
+                    { q: '🍊 What fruit is this?', left: '🍊 Orange', right: '🍇 Grape', correct: 'left' },
+                    { q: '🍓 What fruit is this?', left: '🍓 Strawberry', right: '🫐 Blueberry', correct: 'left' },
+                    { q: '🍉 What fruit is this?', left: '🍉 Watermelon', right: '🍈 Melon', correct: 'left' },
+                    // Shapes
+                    { q: '🔺 What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'left' },
+                    { q: '⬛ What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'right' },
+                    { q: '🔵 What shape is this?', left: '🔵 Circle', right: '🟥 Rectangle', correct: 'left' },
+                    { q: '⭐ What shape is this?', left: '⭐ Star', right: '🔵 Circle', correct: 'left' },
+                    { q: '❤️ What shape is this?', left: '❤️ Heart', right: '⬛ Square', correct: 'left' },
+                    // Colors
+                    { q: '🔴 What color is this?', left: '🔴 Red', right: '🟡 Yellow', correct: 'left' },
+                    { q: '🔵 What color is this?', left: '🔵 Blue', right: '🟢 Green', correct: 'left' },
+                    { q: '🟢 What color is this?', left: '🔴 Red', right: '🟢 Green', correct: 'right' },
+                    { q: '🟡 What color is this?', left: '🟡 Yellow', right: '🔵 Blue', correct: 'left' },
+                    { q: '🟣 What color is this?', left: '🟣 Purple', right: '🟧 Orange', correct: 'left' },
+                ]
             }
         };
 
         // ═══════════════════════════════════════════════════════════
-        //  GAME STATE
+        //  GAME STATE - No timer!
         // ═══════════════════════════════════════════════════════════
         const STATE = {
             WAITING: 'waiting',
-            COUNTDOWN: 'countdown',
+            COUNTDOWN: 'countdown', // keeping for compatibility but no timer
             ANSWERED: 'answered',
             GAME_OVER: 'game_over'
         };
 
         let game = {
-            currentTopic: 'foods',
+            currentTopic: 'mixed',
             questions: [],
             currentIndex: 0,
             score: 0,
             correctCount: 0,
             wrongCount: 0,
             state: STATE.WAITING,
-            timer: 15, // changed to 15
-            timerInterval: null,
             cooldown: false,
             handActive: false,
             selectedSide: null,
@@ -1041,7 +795,6 @@
         // DOM refs
         const video = document.getElementById('webcam');
         const questionEl = document.getElementById('question-text');
-        const timerEl = document.getElementById('timer');
         const leftCircle = document.getElementById('left-answer');
         const rightCircle = document.getElementById('right-answer');
         const scoreEl = document.getElementById('score-value');
@@ -1082,27 +835,25 @@
             } catch (_) { /* silent fail */ }
         }
 
-        function soundTick() { playTone(800, 0.08, 'sine', 0.12); }
-
         function soundCorrect() {
-            playTone(523, 0.15, 'sine', 0.2);
-            setTimeout(() => playTone(659, 0.15, 'sine', 0.2), 120);
-            setTimeout(() => playTone(784, 0.25, 'sine', 0.25), 240);
+            playTone(523, 0.12, 'sine', 0.2);
+            setTimeout(() => playTone(659, 0.12, 'sine', 0.2), 100);
+            setTimeout(() => playTone(784, 0.2, 'sine', 0.25), 200);
         }
 
         function soundWrong() {
-            playTone(300, 0.3, 'sawtooth', 0.12);
-            setTimeout(() => playTone(200, 0.4, 'sawtooth', 0.10), 150);
+            playTone(300, 0.25, 'sawtooth', 0.12);
+            setTimeout(() => playTone(200, 0.3, 'sawtooth', 0.10), 120);
         }
 
         function soundGameOver() {
             [523, 587, 659, 784].forEach((f, i) => {
-                setTimeout(() => playTone(f, 0.2, 'sine', 0.16), i * 150);
+                setTimeout(() => playTone(f, 0.18, 'sine', 0.16), i * 130);
             });
         }
 
-        function soundCountdown() {
-            playTone(600, 0.06, 'sine', 0.10);
+        function soundSelect() {
+            playTone(440, 0.06, 'sine', 0.08);
         }
 
         // ═══════════════════════════════════════════════════════════
@@ -1127,7 +878,7 @@
         }
         window.addEventListener('resize', resizeConfetti);
 
-        function launchConfetti(count = 200) {
+        function launchConfetti(count = 180) {
             initConfettiCanvas();
             const canvas = confettiCanvas;
             const ctx = canvas.getContext('2d');
@@ -1140,18 +891,18 @@
 
             for (let i = 0; i < count; i++) {
                 confettiPieces.push({
-                    x: w / 2 + (Math.random() - 0.5) * 300,
-                    y: h / 2 - 120 + (Math.random() - 0.5) * 100,
-                    w: 8 + Math.random() * 12,
-                    h: 4 + Math.random() * 8,
+                    x: w / 2 + (Math.random() - 0.5) * 280,
+                    y: h / 2 - 100 + (Math.random() - 0.5) * 80,
+                    w: 7 + Math.random() * 11,
+                    h: 4 + Math.random() * 7,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    vx: (Math.random() - 0.5) * 16,
-                    vy: -8 - Math.random() * 12,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: -7 - Math.random() * 11,
                     rot: Math.random() * 6.28,
                     rotSpeed: (Math.random() - 0.5) * 0.2,
-                    gravity: 0.15 + Math.random() * 0.10,
+                    gravity: 0.14 + Math.random() * 0.09,
                     life: 1,
-                    decay: 0.005 + Math.random() * 0.008,
+                    decay: 0.006 + Math.random() * 0.007,
                 });
             }
 
@@ -1213,7 +964,7 @@
         }
 
         // ═══════════════════════════════════════════════════════════
-        //  GAME LOGIC
+        //  GAME LOGIC - No timer, instant progression
         // ═══════════════════════════════════════════════════════════
         function shuffleArray(arr) {
             for (let i = arr.length - 1; i > 0; i--) {
@@ -1223,14 +974,13 @@
             return arr;
         }
 
-        function initGame(topicKey = 'foods') {
-            clearTimer();
+        function initGame(topicKey = 'mixed') {
             stopConfetti();
             gameOverEl.classList.remove('show');
             gameOverEl.style.display = 'none';
 
             game.currentTopic = topicKey;
-            const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.foods.questions;
+            const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.mixed.questions;
             const shuffled = shuffleArray([...topicQuestions]);
             game.questions = shuffled.slice(0, Math.min(10, shuffled.length));
             game.currentIndex = 0;
@@ -1238,7 +988,6 @@
             game.correctCount = 0;
             game.wrongCount = 0;
             game.state = STATE.WAITING;
-            game.timer = 15;
             game.cooldown = false;
             game.handActive = false;
             game.selectedSide = null;
@@ -1248,7 +997,7 @@
             game.totalQuestions = game.questions.length;
             updateScore();
             showQuestion();
-            setStatus('✋ Raise your hand to start!', true);
+            setStatus('👋 Wave your hand left or right!', true);
 
             tabBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.topic === topicKey);
@@ -1261,7 +1010,7 @@
                 return;
             }
             const q = game.questions[game.currentIndex];
-            questionEl.textContent = q.q;
+            questionEl.innerHTML = q.q;
             leftCircle.querySelector('.answer-text').innerHTML = q.left;
             rightCircle.querySelector('.answer-text').innerHTML = q.right;
             qNumEl.textContent = game.currentIndex + 1;
@@ -1272,69 +1021,27 @@
             rightCircle.dataset.side = 'right';
 
             game.state = STATE.WAITING;
-            game.timer = 15;
-            timerEl.textContent = '15';
-            timerEl.className = '';
             game.cooldown = false;
             game.handActive = false;
             game.selectedSide = null;
             game.isProcessing = false;
 
-            setStatus('✋ Raise your hand to answer!', true);
+            setStatus('👋 Wave your hand left or right!', true);
         }
 
+        // No timer - just wait for hand wave
         function startCountdown() {
-            if (game.state === STATE.ANSWERED || game.state === STATE.GAME_OVER) return;
-            if (game.currentIndex >= game.questions.length) return;
-
-            game.state = STATE.COUNTDOWN;
-            game.timer = 15;
-            timerEl.textContent = '15';
-            timerEl.className = '';
-            game.cooldown = false;
-            game.handActive = false;
-            game.selectedSide = null;
-            game.isProcessing = false;
-
-            leftCircle.className = 'answer-circle';
-            rightCircle.className = 'answer-circle';
-
-            setStatus('⏱️ Quick! Raise your hand!', true);
-            soundCountdown();
-
-            clearTimer();
-            game.timerInterval = setInterval(() => {
-                game.timer -= 1;
-                timerEl.textContent = game.timer;
-                if (game.timer <= 5) {
-                    timerEl.className = game.timer <= 3 ? 'danger' : 'warning';
-                }
-                soundTick();
-
-                if (game.timer <= 0) {
-                    clearTimer();
-                    if (game.state === STATE.COUNTDOWN) {
-                        handleTimeout();
-                    }
-                }
-            }, 1000);
-        }
-
-        function handleTimeout() {
-            if (game.state !== STATE.COUNTDOWN) return;
-            game.state = STATE.ANSWERED;
-            game.wrongCount++;
-            setStatus('⏰ Time\'s up! Next one!', true);
-            soundWrong();
-            leftCircle.classList.add('disabled');
-            rightCircle.classList.add('disabled');
-            setTimeout(() => nextQuestion(), 1200);
+            // This is now just a placeholder - we go straight to waiting
+            if (game.state === STATE.WAITING) {
+                game.state = STATE.COUNTDOWN;
+                setStatus('👋 Wave your hand now!', true);
+            }
         }
 
         function selectAnswer(side) {
-            if (game.state !== STATE.COUNTDOWN) return;
             if (game.cooldown || game.isProcessing) return;
             if (game.currentIndex >= game.questions.length) return;
+
             const q = game.questions[game.currentIndex];
             const isCorrect = (side === q.correct);
 
@@ -1342,7 +1049,6 @@
             game.cooldown = true;
             game.isProcessing = true;
             game.selectedSide = side;
-            clearTimer();
 
             const el = side === 'left' ? leftCircle : rightCircle;
             const other = side === 'left' ? rightCircle : leftCircle;
@@ -1354,8 +1060,8 @@
                 game.correctCount++;
                 updateScore(true);
                 soundCorrect();
-                launchConfetti(180);
-                setStatus('🌟 Correct! Awesome! 🎉', true);
+                launchConfetti(150);
+                setStatus('🌟 Correct! You\'re awesome! 🎉', true);
             } else {
                 el.classList.add('wrong');
                 const correctEl = q.correct === 'left' ? leftCircle : rightCircle;
@@ -1363,13 +1069,14 @@
                 other.classList.add('disabled');
                 game.wrongCount++;
                 soundWrong();
-                setStatus('😅 Oops! The answer was ' + (q.correct === 'left' ? q.left : q.right) + '!', true);
+                const correctAnswer = q.correct === 'left' ? q.left : q.right;
+                setStatus('😅 Oops! The answer was ' + correctAnswer + '!', true);
             }
 
             setTimeout(() => {
                 game.isProcessing = false;
                 nextQuestion();
-            }, 1500);
+            }, 1200);
         }
 
         function nextQuestion() {
@@ -1379,26 +1086,27 @@
                 endGame();
             } else {
                 showQuestion();
+                // Auto-start next question
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
-                        startCountdown();
+                        game.state = STATE.COUNTDOWN;
+                        setStatus('👋 Wave your hand now!', true);
                     }
-                }, 600);
+                }, 300);
             }
         }
 
         function endGame() {
             game.state = STATE.GAME_OVER;
-            clearTimer();
             stopConfetti();
-            setStatus('🏁 You finished! Great job!', true);
+            setStatus('🏁 You finished! Great job! ⭐', true);
 
             finalScoreEl.textContent = game.score;
             finalStatsEl.textContent = `✅ Correct: ${game.correctCount}  ·  ❌ Oops: ${game.wrongCount}`;
             gameOverEl.style.display = 'flex';
             setTimeout(() => gameOverEl.classList.add('show'), 50);
             soundGameOver();
-            launchConfetti(250);
+            launchConfetti(220);
         }
 
         function updateScore(pop = false) {
@@ -1407,13 +1115,6 @@
                 scoreEl.classList.remove('pop');
                 void scoreEl.offsetWidth;
                 scoreEl.classList.add('pop');
-            }
-        }
-
-        function clearTimer() {
-            if (game.timerInterval) {
-                clearInterval(game.timerInterval);
-                game.timerInterval = null;
             }
         }
 
@@ -1435,9 +1136,10 @@
             initGame(topicKey);
             setTimeout(() => {
                 if (game.state === STATE.WAITING) {
-                    startCountdown();
+                    game.state = STATE.COUNTDOWN;
+                    setStatus('👋 Wave your hand now!', true);
                 }
-            }, 600);
+            }, 500);
         }
 
         tabBtns.forEach(btn => {
@@ -1448,41 +1150,56 @@
         });
 
         // ═══════════════════════════════════════════════════════════
-        //  MEDIAPIPE HAND DETECTION (with debounce and threshold)
+        //  MEDIAPIPE HAND DETECTION - SUPER SMOOTH & RESPONSIVE
         // ═══════════════════════════════════════════════════════════
         let handDetectionReady = false;
-        let handRaisedStartTime = 0; // timestamp when hand first detected raised
-        const RAISE_THRESHOLD = 0.08; // how much index tip must be above wrist
-        const RAISE_DEBOUNCE_MS = 350; // minimum time hand must stay raised
+        let handRaisedStartTime = 0;
+        const RAISE_THRESHOLD = 0.015; // Very sensitive - easy for kids
+        const RAISE_DEBOUNCE_MS = 180; // Short debounce for quick response
+        let lastGlowSide = null;
+        let glowTimeout = null;
+
+        // Smoothing variables
+        let smoothX = 0.5;
+        let smoothY = 0.5;
+        const SMOOTH_FACTOR = 0.4;
 
         function onHandResults(results) {
-            // No hand detected -> reset state
+            // No hand detected
             if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
                 handRaisedStartTime = 0;
-                if (game.state === STATE.COUNTDOWN) {
+                if (game.state === STATE.COUNTDOWN || game.state === STATE.WAITING) {
                     leftCircle.classList.remove('glow-left');
                     rightCircle.classList.remove('glow-right');
                 }
-                // Reset handActive to allow new detection
                 game.handActive = false;
+                lastGlowSide = null;
                 return;
             }
 
             const landmarks = results.multiHandLandmarks[0];
             const wrist = landmarks[0];
             const indexTip = landmarks[8];
+            const middleTip = landmarks[12];
             const imageWidth = video.videoWidth || 640;
             const imageHeight = video.videoHeight || 480;
 
-            // mirrored for display
-            const mirroredX = imageWidth - indexTip.x * imageWidth;
-            const raised = indexTip.y < wrist.y - RAISE_THRESHOLD;
-            const half = imageWidth / 2;
-            const side = mirroredX < half ? 'left' : 'right';
+            // Use both index and middle for more stable detection
+            const avgY = (indexTip.y + middleTip.y) / 2;
+            const raised = avgY < wrist.y - RAISE_THRESHOLD;
 
-            // Update glow based on state
-            if (game.state === STATE.COUNTDOWN && raised) {
-                // Show glow
+            // Smooth the X position for stable side detection
+            const rawX = imageWidth - indexTip.x * imageWidth;
+            smoothX = smoothX * (1 - SMOOTH_FACTOR) + rawX * SMOOTH_FACTOR;
+
+            const half = imageWidth / 2;
+            const side = smoothX < half ? 'left' : 'right';
+
+            // Only process if game is active and not answered
+            const isActive = (game.state === STATE.COUNTDOWN || game.state === STATE.WAITING);
+
+            if (isActive && raised) {
+                // Show glow with smooth transition
                 if (side === 'left') {
                     leftCircle.classList.add('glow-left');
                     rightCircle.classList.remove('glow-right');
@@ -1490,29 +1207,36 @@
                     rightCircle.classList.add('glow-right');
                     leftCircle.classList.remove('glow-left');
                 }
+                lastGlowSide = side;
 
-                // Debounce: only trigger after hand has been raised for a certain duration
+                // Debounce: only trigger after hand has been raised for a moment
                 if (handRaisedStartTime === 0) {
                     handRaisedStartTime = performance.now();
                 } else {
                     const elapsed = performance.now() - handRaisedStartTime;
                     if (elapsed > RAISE_DEBOUNCE_MS) {
-                        // Hand has been raised long enough -> trigger if not already processed
+                        // Trigger only if not already processed and game is in countdown
                         if (!game.cooldown && !game.isProcessing && !game.handActive) {
-                            game.handActive = true;
-                            selectAnswer(side);
+                            // Only trigger if we're in COUNTDOWN state (ready to answer)
+                            if (game.state === STATE.COUNTDOWN) {
+                                game.handActive = true;
+                                soundSelect();
+                                selectAnswer(side);
+                            }
                         }
                     }
                 }
             } else {
-                // Hand not raised or not in countdown -> clear glow and reset timer
-                leftCircle.classList.remove('glow-left');
-                rightCircle.classList.remove('glow-right');
+                // Hand not raised - clear glow and reset timer
+                if (isActive) {
+                    leftCircle.classList.remove('glow-left');
+                    rightCircle.classList.remove('glow-right');
+                }
                 handRaisedStartTime = 0;
-                // Reset handActive only if hand is not raised
                 if (!raised) {
                     game.handActive = false;
                 }
+                lastGlowSide = null;
             }
         }
 
@@ -1526,8 +1250,8 @@
             hands.setOptions({
                 maxNumHands: 1,
                 modelComplexity: 1,
-                minDetectionConfidence: 0.7,
-                minTrackingConfidence: 0.6,
+                minDetectionConfidence: 0.65,
+                minTrackingConfidence: 0.55,
             });
 
             hands.onResults(onHandResults);
@@ -1553,19 +1277,19 @@
             if (cameraStartedFlag) return;
             cameraStartedFlag = true;
 
-            // Hide camera overlay
             cameraOverlay.classList.add('hidden');
-            setStatus('✋ Raise your hand to start!', true);
+            setStatus('👋 Wave your hand left or right!', true);
 
             cameraInstance = setupHandDetection();
             cameraInstance.start().then(() => {
                 handDetectionReady = true;
-                initGame('foods');
+                initGame('mixed');
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
-                        startCountdown();
+                        game.state = STATE.COUNTDOWN;
+                        setStatus('👋 Wave your hand now!', true);
                     }
-                }, 800);
+                }, 600);
             }).catch((err) => {
                 console.warn('Camera error:', err);
                 questionEl.textContent = '📷 Camera access denied. Please allow camera and refresh.';
@@ -1575,12 +1299,11 @@
             });
         }
 
-        // ─── Camera Start Button ───
+        // ─── Camera Start ───
         cameraStartBtn.addEventListener('click', () => {
             startCameraAndGame();
         });
 
-        // ─── Also start when user clicks anywhere on the overlay ───
         cameraOverlay.addEventListener('click', (e) => {
             if (e.target === cameraOverlay || e.target.closest('#camera-overlay')) {
                 startCameraAndGame();
@@ -1597,22 +1320,24 @@
             initGame(game.currentTopic);
             setTimeout(() => {
                 if (game.state === STATE.WAITING) {
-                    startCountdown();
+                    game.state = STATE.COUNTDOWN;
+                    setStatus('👋 Wave your hand now!', true);
                 }
-            }, 600);
+            }, 500);
         });
 
         // ═══════════════════════════════════════════════════════════
-        //  KEYBOARD SHORTCUTS (for testing without webcam)
+        //  KEYBOARD SHORTCUTS (for testing)
         // ═══════════════════════════════════════════════════════════
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
-                if (game.state === STATE.COUNTDOWN) selectAnswer('left');
+                if (game.state === STATE.COUNTDOWN || game.state === STATE.WAITING) {
+                    selectAnswer('left');
+                }
             } else if (e.key === 'ArrowRight') {
-                if (game.state === STATE.COUNTDOWN) selectAnswer('right');
-            } else if (e.key === ' ' || e.key === 'Enter') {
-                e.preventDefault();
-                if (game.state === STATE.WAITING) startCountdown();
+                if (game.state === STATE.COUNTDOWN || game.state === STATE.WAITING) {
+                    selectAnswer('right');
+                }
             } else if (e.key === 'r' || e.key === 'R') {
                 restartBtn.click();
             }
@@ -1621,17 +1346,17 @@
         // ═══════════════════════════════════════════════════════════
         //  BOOT
         // ═══════════════════════════════════════════════════════════
-        questionEl.textContent = '🎯 Pick a topic and play!';
+        questionEl.textContent = '🎯 Pick a topic and wave!';
         setStatus('📷 Allow camera to start', false);
         window.addEventListener('resize', resizeConfetti);
 
-        // Show camera overlay by default
         cameraOverlay.classList.remove('hidden');
 
-        console.log('🍎 Gesture Game with Topics loaded!');
-        console.log('🎮 Controls: Left/Right arrow keys to test, Space to start, R to restart');
-        console.log('📂 Topics: foods, fruits, animals, colors, shapes');
-        console.log('⏱️ Timer set to 15 seconds with debounced hand detection.');
+        console.log('🌈 Fun Gesture Game loaded!');
+        console.log('🎮 Controls: Left/Right arrow keys to test, R to restart');
+        console.log('📂 Topics: mixed, fruits, shapes, colors');
+        console.log('👋 Wave your hand left or right to answer! No timer!');
+        console.log('💡 Super sensitive detection for young learners!');
     </script>
 </body>
 </html>
