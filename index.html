@@ -211,6 +211,7 @@
             margin-top: 6px;
             pointer-events: auto;
             text-align: center;
+            position: relative;
         }
         #question-text {
             font-size: clamp(1.4rem, 3.5vw, 2.8rem);
@@ -219,6 +220,38 @@
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
             line-height: 1.3;
         }
+
+        /* ─── MUSIC TOGGLE BUTTON ─── */
+        #music-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+        #music-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            border-color: #7ee8fa;
+            box-shadow: 0 0 20px rgba(126, 232, 250, 0.2);
+        }
+        #music-toggle.muted {
+            opacity: 0.5;
+        }
+
         #bottom-bar {
             width: 100%;
             max-width: 820px;
@@ -475,6 +508,12 @@
                 font-size: clamp(0.7rem, 1.4vw, 1rem);
                 padding: 8px 20px;
             }
+            #music-toggle {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+                right: 8px;
+            }
         }
         @media (max-width: 450px) {
             #top-bar {
@@ -530,6 +569,12 @@
                 gap: 3px;
                 padding: 3px 6px;
             }
+            #music-toggle {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+                right: 6px;
+            }
         }
         .hidden {
             display: none !important;
@@ -566,6 +611,7 @@
             </div>
             <div id="top-bar">
                 <div id="question-text">🎯 Wave your hand to answer!</div>
+                <button id="music-toggle" title="Toggle Background Music">🔊</button>
             </div>
             <div id="bottom-bar">
                 <div id="score-wrap">
@@ -597,6 +643,195 @@
     </div>
 
     <script>
+        // ═══════════════════════════════════════════════════════════════
+        //  ARCADE BACKGROUND MUSIC
+        // ═══════════════════════════════════════════════════════════════
+        class ArcadeMusic {
+            constructor() {
+                this.ctx = null;
+                this.isPlaying = false;
+                this.isMuted = false;
+                this.timeoutId = null;
+                this.step = 0;
+                this.bpm = 125;
+                this.stepTime = (60 / this.bpm) / 4; // 16th notes
+                this.volume = 0.18;
+
+                // Melody pattern (16 steps, semitone offsets from root)
+                this.melodyPattern = [0, 4, 7, 12, 7, 4, 0, 5, 7, 12, 7, 5, 0, 4, 7, 12];
+                this.bassPattern = [-12, -12, -8, -8, -12, -12, -8, -8, -12, -12, -8, -8, -12, -12, -8, -8];
+                this.root = 523; // C5
+
+                // Active oscillators and gains
+                this.oscillators = [];
+                this.gainNodes = [];
+            }
+
+            start() {
+                if (this.isPlaying) return;
+                try {
+                    this.ctx = new(window.AudioContext || window.webkitAudioContext)();
+                    this.isPlaying = true;
+                    this.step = 0;
+                    this.scheduleLoop();
+                } catch (e) {
+                    console.warn('Audio not available:', e);
+                }
+            }
+
+            stop() {
+                this.isPlaying = false;
+                if (this.timeoutId) {
+                    clearTimeout(this.timeoutId);
+                    this.timeoutId = null;
+                }
+                // Release all oscillators
+                this.oscillators.forEach(osc => {
+                    try { osc.stop(); } catch (_) {}
+                });
+                this.oscillators = [];
+                this.gainNodes = [];
+                if (this.ctx && this.ctx.state === 'running') {
+                    // Don't close the context, just stop sounds
+                }
+            }
+
+            toggleMute() {
+                this.isMuted = !this.isMuted;
+                if (this.isMuted) {
+                    this.oscillators.forEach(osc => {
+                        try { osc.gain.setValueAtTime(0, this.ctx.currentTime); } catch (_) {}
+                    });
+                }
+                return this.isMuted;
+            }
+
+            scheduleLoop() {
+                if (!this.isPlaying) return;
+
+                // Play notes for this step
+                this.playStep();
+
+                // Schedule next step
+                const delay = this.stepTime * 1000;
+                this.timeoutId = setTimeout(() => {
+                    this.step = (this.step + 1) % this.melodyPattern.length;
+                    this.scheduleLoop();
+                }, delay);
+            }
+
+            playStep() {
+                if (!this.ctx || this.ctx.state !== 'running') return;
+                if (this.isMuted) return;
+
+                const now = this.ctx.currentTime;
+                const step = this.step;
+                const duration = this.stepTime * 0.9;
+
+                // ─── MELODY (square wave, bright) ───
+                const melodyFreq = this.root * Math.pow(2, this.melodyPattern[step] / 12);
+                const osc1 = this.ctx.createOscillator();
+                const gain1 = this.ctx.createGain();
+                osc1.type = 'square';
+                osc1.frequency.value = melodyFreq;
+                gain1.gain.setValueAtTime(this.volume * 0.7, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                osc1.connect(gain1);
+                gain1.connect(this.ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + duration);
+                this.oscillators.push(osc1);
+                this.gainNodes.push(gain1);
+
+                // Add a second oscillator for a detuned effect (creates that arcade sound)
+                const osc2 = this.ctx.createOscillator();
+                const gain2 = this.ctx.createGain();
+                osc2.type = 'square';
+                osc2.frequency.value = melodyFreq * 1.002;
+                gain2.gain.setValueAtTime(this.volume * 0.3, now);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                osc2.connect(gain2);
+                gain2.connect(this.ctx.destination);
+                osc2.start(now);
+                osc2.stop(now + duration);
+                this.oscillators.push(osc2);
+                this.gainNodes.push(gain2);
+
+                // ─── BASS (square wave, lower) ───
+                const bassFreq = this.root * Math.pow(2, this.bassPattern[step] / 12) * 0.5;
+                const osc3 = this.ctx.createOscillator();
+                const gain3 = this.ctx.createGain();
+                osc3.type = 'square';
+                osc3.frequency.value = bassFreq;
+                gain3.gain.setValueAtTime(this.volume * 0.5, now);
+                gain3.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                osc3.connect(gain3);
+                gain3.connect(this.ctx.destination);
+                osc3.start(now);
+                osc3.stop(now + duration);
+                this.oscillators.push(osc3);
+                this.gainNodes.push(gain3);
+
+                // ─── KICK DRUM (noise burst) ───
+                if (step % 4 === 0 || step % 4 === 2) {
+                    const bufferSize = this.ctx.sampleRate * 0.05;
+                    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+                    }
+                    const noise = this.ctx.createBufferSource();
+                    const gainNoise = this.ctx.createGain();
+                    noise.buffer = buffer;
+                    gainNoise.gain.setValueAtTime(this.volume * 0.6, now);
+                    gainNoise.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    noise.connect(gainNoise);
+                    gainNoise.connect(this.ctx.destination);
+                    noise.start(now);
+                    noise.stop(now + 0.08);
+                    this.oscillators.push(noise);
+                    this.gainNodes.push(gainNoise);
+                }
+
+                // ─── SNARE (on 2 and 4) ───
+                if (step % 8 === 4 || step % 8 === 0) {
+                    const bufferSize = this.ctx.sampleRate * 0.04;
+                    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.15));
+                    }
+                    const noise = this.ctx.createBufferSource();
+                    const gainNoise = this.ctx.createGain();
+                    noise.buffer = buffer;
+                    gainNoise.gain.setValueAtTime(this.volume * 0.35, now);
+                    gainNoise.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                    noise.connect(gainNoise);
+                    gainNoise.connect(this.ctx.destination);
+                    noise.start(now);
+                    noise.stop(now + 0.06);
+                    this.oscillators.push(noise);
+                    this.gainNodes.push(gainNoise);
+                }
+
+                // Clean up old oscillators (keep last 50)
+                if (this.oscillators.length > 50) {
+                    const removed = this.oscillators.splice(0, 20);
+                    removed.forEach(osc => {
+                        try { osc.stop(); } catch (_) {}
+                    });
+                    this.gainNodes.splice(0, 20);
+                }
+            }
+
+            // Resume audio context if it was suspended (needed for iOS/Chrome autoplay policy)
+            resume() {
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+        }
+
         // ═══════════════════════════════════════════════════════════════
         //  QUESTIONS (kindergarten friendly)
         // ═══════════════════════════════════════════════════════════════
@@ -683,7 +918,7 @@
         // ═══════════════════════════════════════════════════════════════
         const STATE = {
             WAITING: 'waiting',
-            COUNTDOWN: 'countdown', // kept for compatibility but no timer
+            COUNTDOWN: 'countdown',
             ANSWERED: 'answered',
             GAME_OVER: 'game_over'
         };
@@ -702,6 +937,9 @@
             totalQuestions: 10,
             isProcessing: false,
         };
+
+        // ─── Music Instance ───
+        const arcadeMusic = new ArcadeMusic();
 
         // DOM refs
         const video = document.getElementById('webcam');
@@ -722,6 +960,16 @@
         const cameraOverlay = document.getElementById('camera-overlay');
         const cameraStartBtn = document.getElementById('camera-start-btn');
         const tabBtns = document.querySelectorAll('.tab-btn');
+        const musicToggle = document.getElementById('music-toggle');
+
+        // ─── Music Toggle ───
+        musicToggle.addEventListener('click', () => {
+            const muted = arcadeMusic.toggleMute();
+            musicToggle.textContent = muted ? '🔇' : '🔊';
+            musicToggle.classList.toggle('muted', muted);
+            // Resume audio context if needed
+            arcadeMusic.resume();
+        });
 
         // ═══════════════════════════════════════════════════════════════
         //  SOUND
@@ -730,6 +978,11 @@
 
         function initAudio() {
             if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+            // Resume background music
+            arcadeMusic.resume();
+            if (!arcadeMusic.isPlaying) {
+                arcadeMusic.start();
+            }
         }
 
         function playTone(freq, duration, type = 'sine', vol = 0.2) {
@@ -870,7 +1123,7 @@
         }
 
         // ═══════════════════════════════════════════════════════════════
-        //  CANVAS RESIZE (just for drawing hand indicators, but not used heavily)
+        //  CANVAS RESIZE
         // ═══════════════════════════════════════════════════════════════
         function resizeCanvas() {
             const rect = canvas.parentElement.getBoundingClientRect();
@@ -918,6 +1171,13 @@
             tabBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.topic === topicKey);
             });
+
+            // Ensure music is playing
+            initAudio();
+            if (!arcadeMusic.isPlaying) {
+                arcadeMusic.start();
+            }
+            arcadeMusic.resume();
         }
 
         function showQuestion() {
@@ -949,9 +1209,7 @@
             setStatus('✋ Wave your hand left or right!', true);
         }
 
-        // No timer - just wait for hand wave
         function startCountdown() {
-            // Immediately set to COUNTDOWN so hand detection works
             if (game.state === STATE.WAITING) {
                 game.state = STATE.COUNTDOWN;
                 setStatus('✋ Wave your hand now!', true);
@@ -1005,7 +1263,6 @@
                 endGame();
             } else {
                 showQuestion();
-                // Auto-start next question
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
                         game.state = STATE.COUNTDOWN;
@@ -1065,19 +1322,17 @@
         });
 
         // ═══════════════════════════════════════════════════════════════
-        //  MEDIAPIPE HANDS - SIMPLE AND RELIABLE
+        //  MEDIAPIPE HANDS
         // ═══════════════════════════════════════════════════════════════
         let handDetectionReady = false;
         let handRaisedStartTime = 0;
         const RAISE_THRESHOLD = 0.02;
         const RAISE_DEBOUNCE_MS = 200;
 
-        // Smoothing for hand position
         let smoothX = 0.5;
         let smoothY = 0.5;
         const SMOOTH_FACTOR = 0.3;
 
-        // Circle helpers
         function getCircleCenter(side) {
             const el = side === 'left' ? leftCircle : rightCircle;
             const rect = el.getBoundingClientRect();
@@ -1112,32 +1367,25 @@
                 return;
             }
 
-            // We'll use the first hand detected
             const landmarks = results.multiHandLandmarks[0];
             const wrist = landmarks[0];
             const indexTip = landmarks[8];
             const imageWidth = video.videoWidth || 640;
             const imageHeight = video.videoHeight || 480;
 
-            // Mirror x for display
             const rawX = imageWidth - indexTip.x * imageWidth;
             const rawY = indexTip.y * imageHeight;
 
-            // Smooth position
             smoothX = smoothX * (1 - SMOOTH_FACTOR) + rawX * SMOOTH_FACTOR;
             smoothY = smoothY * (1 - SMOOTH_FACTOR) + rawY * SMOOTH_FACTOR;
 
             const handX = smoothX;
             const handY = smoothY;
 
-            // Determine side based on hand position relative to screen center
             const half = imageWidth / 2;
             const side = handX < half ? 'left' : 'right';
-
-            // Check if hand is raised (index tip above wrist)
             const raised = indexTip.y < wrist.y - RAISE_THRESHOLD;
 
-            // Draw a simple indicator on canvas (just a circle at hand position)
             if (raised) {
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = 'rgba(126, 232, 250, 0.6)';
@@ -1150,7 +1398,6 @@
                 ctx.beginPath();
                 ctx.arc(handX, handY, 8, 0, 2 * Math.PI);
                 ctx.fill();
-                // Label
                 ctx.shadowBlur = 0;
                 ctx.fillStyle = 'rgba(255,255,255,0.5)';
                 ctx.font = '14px sans-serif';
@@ -1158,11 +1405,9 @@
                 ctx.fillText(side === 'left' ? '👈' : '👉', handX, handY - 30);
             }
 
-            // Only process if game is active
             const isActive = (game.state === STATE.COUNTDOWN || game.state === STATE.WAITING);
 
             if (isActive && raised) {
-                // Show glow on the side the hand is on
                 if (side === 'left') {
                     leftCircle.classList.add('glow');
                     rightCircle.classList.remove('glow');
@@ -1171,7 +1416,6 @@
                     leftCircle.classList.remove('glow');
                 }
 
-                // Debounce trigger
                 if (handRaisedStartTime === 0) {
                     handRaisedStartTime = performance.now();
                 } else {
@@ -1187,7 +1431,6 @@
                     }
                 }
             } else {
-                // Not raised or not active - clear glow
                 if (isActive) {
                     leftCircle.classList.remove('glow');
                     rightCircle.classList.remove('glow');
@@ -1242,7 +1485,6 @@
             cameraInstance.start().then(() => {
                 handDetectionReady = true;
                 initGame('foods');
-                // Start the first question countdown (which is immediate)
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
                         game.state = STATE.COUNTDOWN;
@@ -1282,7 +1524,7 @@
         });
 
         // ═══════════════════════════════════════════════════════════════
-        //  KEYBOARD SHORTCUTS (for testing)
+        //  KEYBOARD SHORTCUTS
         // ═══════════════════════════════════════════════════════════════
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
@@ -1295,6 +1537,8 @@
                 }
             } else if (e.key === 'r' || e.key === 'R') {
                 restartBtn.click();
+            } else if (e.key === 'm' || e.key === 'M') {
+                musicToggle.click();
             }
         });
 
@@ -1307,9 +1551,14 @@
         window.addEventListener('resize', resizeCanvas);
         cameraOverlay.classList.remove('hidden');
 
-        console.log('🌈 Fun Hand Game loaded!');
+        // Preload audio context on first user interaction
+        document.addEventListener('click', () => { initAudio(); }, { once: true });
+        document.addEventListener('touchstart', () => { initAudio(); }, { once: true });
+
+        console.log('🌈 Fun Hand Game with Arcade Music loaded!');
         console.log('👋 Wave your hand left or right to answer! No timer!');
-        console.log('🎮 Keyboard: Left/Right arrows to test, R to restart');
+        console.log('🎵 Background music: press the 🔊 button to toggle');
+        console.log('🎮 Keyboard: Left/Right arrows to test, R to restart, M to toggle music');
     </script>
 
 </body>
