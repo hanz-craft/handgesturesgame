@@ -645,10 +645,11 @@
         <div id="overlay">
             <!-- TAB BAR -->
             <div id="tab-bar">
-                <button class="tab-btn active" data-topic="mixed"><span class="emoji-tab">🌈</span> All</button>
-                <button class="tab-btn" data-topic="fruits"><span class="emoji-tab">🍎</span> Fruits</button>
+                <button class="tab-btn active" data-topic="foods"><span class="emoji-tab">🍎</span> Foods</button>
+                <button class="tab-btn" data-topic="fruits"><span class="emoji-tab">🍉</span> Fruits</button>
                 <button class="tab-btn" data-topic="shapes"><span class="emoji-tab">🔺</span> Shapes</button>
                 <button class="tab-btn" data-topic="colors"><span class="emoji-tab">🎨</span> Colors</button>
+                <button class="tab-btn" data-topic="mixed"><span class="emoji-tab">🌈</span> All</button>
             </div>
 
             <!-- Header - no timer -->
@@ -694,11 +695,65 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        //  TOPICS & QUESTIONS - Super Easy for Kindergarten!
+        //  TOPICS & QUESTIONS - Includes the restored "Good Foods"
         // ═══════════════════════════════════════════════════════════
         const TOPICS = {
+            foods: {
+                label: '🍎 Foods',
+                questions: [{
+                    q: '🍎 Which one is a fruit?',
+                    left: '🥕 Carrot',
+                    right: '🍌 Banana',
+                    correct: 'right'
+                }, {
+                    q: '🥦 Which one is a vegetable?',
+                    left: '🥦 Broccoli',
+                    right: '🍕 Pizza',
+                    correct: 'left'
+                }, {
+                    q: '🍋 What color is a banana?',
+                    left: '🟡 Yellow',
+                    right: '🔴 Red',
+                    correct: 'left'
+                }, {
+                    q: '🥛 Which drink is super healthy?',
+                    left: '🥛 Milk',
+                    right: '🥤 Soda',
+                    correct: 'left'
+                }, {
+                    q: '🍟 Which one is a healthy snack?',
+                    left: '🥄 Yogurt',
+                    right: '🍟 Fries',
+                    correct: 'left'
+                }, {
+                    q: '🌳 Which one grows on a tree?',
+                    left: '🍊 Orange',
+                    right: '🍞 Bread',
+                    correct: 'left'
+                }, {
+                    q: '🌿 Which one is a green vegetable?',
+                    left: '🌿 Spinach',
+                    right: '🍝 Pasta',
+                    correct: 'left'
+                }, {
+                    q: '🍓 Which one is sweet?',
+                    left: '🍓 Strawberry',
+                    right: '🍋 Lemon',
+                    correct: 'left'
+                }, {
+                    q: '🐄 What do cows give us?',
+                    left: '🥛 Milk',
+                    right: '🥚 Eggs',
+                    correct: 'left'
+                }, {
+                    q: '🍗 Which one is a protein?',
+                    left: '🍗 Chicken',
+                    right: '🍬 Candy',
+                    correct: 'left'
+                }]
+            },
             fruits: {
-                label: '🍎 Fruits',
+                label: '🍉 Fruits',
                 questions: [
                     { q: '🍎 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'left' },
                     { q: '🍌 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'right' },
@@ -745,24 +800,22 @@
             mixed: {
                 label: '🌈 All',
                 questions: [
+                    // Foods
+                    { q: '🍎 Which one is a fruit?', left: '🥕 Carrot', right: '🍌 Banana', correct: 'right' },
+                    { q: '🥦 Which one is a vegetable?', left: '🥦 Broccoli', right: '🍕 Pizza', correct: 'left' },
+                    { q: '🥛 Which drink is healthy?', left: '🥛 Milk', right: '🥤 Soda', correct: 'left' },
                     // Fruits
                     { q: '🍎 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'left' },
                     { q: '🍌 What fruit is this?', left: '🍎 Apple', right: '🍌 Banana', correct: 'right' },
                     { q: '🍊 What fruit is this?', left: '🍊 Orange', right: '🍇 Grape', correct: 'left' },
-                    { q: '🍓 What fruit is this?', left: '🍓 Strawberry', right: '🫐 Blueberry', correct: 'left' },
-                    { q: '🍉 What fruit is this?', left: '🍉 Watermelon', right: '🍈 Melon', correct: 'left' },
                     // Shapes
                     { q: '🔺 What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'left' },
                     { q: '⬛ What shape is this?', left: '🔺 Triangle', right: '⬛ Square', correct: 'right' },
                     { q: '🔵 What shape is this?', left: '🔵 Circle', right: '🟥 Rectangle', correct: 'left' },
-                    { q: '⭐ What shape is this?', left: '⭐ Star', right: '🔵 Circle', correct: 'left' },
-                    { q: '❤️ What shape is this?', left: '❤️ Heart', right: '⬛ Square', correct: 'left' },
                     // Colors
                     { q: '🔴 What color is this?', left: '🔴 Red', right: '🟡 Yellow', correct: 'left' },
                     { q: '🔵 What color is this?', left: '🔵 Blue', right: '🟢 Green', correct: 'left' },
                     { q: '🟢 What color is this?', left: '🔴 Red', right: '🟢 Green', correct: 'right' },
-                    { q: '🟡 What color is this?', left: '🟡 Yellow', right: '🔵 Blue', correct: 'left' },
-                    { q: '🟣 What color is this?', left: '🟣 Purple', right: '🟧 Orange', correct: 'left' },
                 ]
             }
         };
@@ -778,7 +831,7 @@
         };
 
         let game = {
-            currentTopic: 'mixed',
+            currentTopic: 'foods', // default to Foods
             questions: [],
             currentIndex: 0,
             score: 0,
@@ -974,13 +1027,13 @@
             return arr;
         }
 
-        function initGame(topicKey = 'mixed') {
+        function initGame(topicKey = 'foods') {
             stopConfetti();
             gameOverEl.classList.remove('show');
             gameOverEl.style.display = 'none';
 
             game.currentTopic = topicKey;
-            const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.mixed.questions;
+            const topicQuestions = TOPICS[topicKey] ? TOPICS[topicKey].questions : TOPICS.foods.questions;
             const shuffled = shuffleArray([...topicQuestions]);
             game.questions = shuffled.slice(0, Math.min(10, shuffled.length));
             game.currentIndex = 0;
@@ -1283,7 +1336,7 @@
             cameraInstance = setupHandDetection();
             cameraInstance.start().then(() => {
                 handDetectionReady = true;
-                initGame('mixed');
+                initGame('foods'); // default to Foods
                 setTimeout(() => {
                     if (game.state === STATE.WAITING) {
                         game.state = STATE.COUNTDOWN;
@@ -1354,7 +1407,7 @@
 
         console.log('🌈 Fun Gesture Game loaded!');
         console.log('🎮 Controls: Left/Right arrow keys to test, R to restart');
-        console.log('📂 Topics: mixed, fruits, shapes, colors');
+        console.log('📂 Topics: foods, fruits, shapes, colors, mixed');
         console.log('👋 Wave your hand left or right to answer! No timer!');
         console.log('💡 Super sensitive detection for young learners!');
     </script>
